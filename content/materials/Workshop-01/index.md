@@ -1,9 +1,5 @@
 ---
 title: "Getting Started in R"
-linktitle: "Getting Started in R"
-menu:
-  materials:
-  parent: materials
 links:
 - icon: images
   icon_pack: fas
