@@ -44,10 +44,4 @@ superuser: true
 # title: 
 ---
 
-Welcome to my website! My name is Josh Allen and I am a third year PhD student
-in the [Department of Political Science at Georgia State University](https://politicalscience.gsu.edu/).
-I earned my M.A. at Georgia State and am a proud [Sonoma State University alum](http://politicalscience.sonoma.edu/).
-
-My research focuses on the impacts  of political violence and mass violence on political participation and attitudes in Western Europe. With interests on its effects for conflict dynamics and on its impact on contemporary politics. 
-{{< icon name="download" pack="fas" >}} My CV can be downloaded {{< staticref "uploads/Allen_Vita.pdf" "newtab" >}} here {{< /staticref >}}.
-
+Hello welcome to the research Data Services R workshop slides website. This is where I keep stuff. Lorem Ipsum dolor 
