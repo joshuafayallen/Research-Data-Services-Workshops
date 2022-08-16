@@ -709,11 +709,14 @@ Remember to work and reuse stuff in R we need to assign it to an object. So firs
 class:inverse
 # Your Turn
 
-- Install the palmerpenguins package
-
+- read in the data included to the website using `read.csv`
+  - What happens when you do not assign the dataset?
+  
 - assign the `penguins` dataset to an object named penguins
 
 - use `View`, `head`, and `tail` to inspect the dataset
+
+- using `install.packages()` install ggplot2
 
 ---
 
@@ -1008,12 +1011,13 @@ class:inverse
 
 - Find the maximum value of `body_mass_g`
 
-- Find the range of `bill_depth_mm`
+- Subset the penguins data any way you want using `[]` or `$`
 
 - Assign each of them to an object
 
 - Create a vector of anything you want and find the second thing in that vector using `[]`
 
+- Do the same thing using `$`
 
 ```{r echo = FALSE}
 countdown::countdown(minutes = 5, play_sound = FALSE)

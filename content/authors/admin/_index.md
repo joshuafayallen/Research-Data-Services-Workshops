@@ -44,4 +44,4 @@ superuser: true
 # title: 
 ---
 
-Hello welcome to the research Data Services R workshop slides website. This is where I keep stuff. Lorem Ipsum dolor 
+Hello welcome to the research Data Services R workshop slides website. This is where I keep stuff. My name is Josh Allen and I am the keeper and mainter of this site. 
