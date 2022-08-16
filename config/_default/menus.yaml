@@ -14,5 +14,5 @@ main:
 Materials:
   - name: Overview
     weight: 1
-  - name: Content
+  - name: Materials
     weight: 2
