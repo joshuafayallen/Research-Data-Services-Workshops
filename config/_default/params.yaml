@@ -48,6 +48,9 @@ university:
 school:
   name: Research Data Services @ Georgia State University Library
   url: "https://research.library.gsu.edu/dataservices"
+  
+  
+sharing_image: "avatar.png"  
 #phone: 888 888 88 88
 #address:
 #  street: 450 Serra Mall
