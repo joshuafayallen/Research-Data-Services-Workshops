@@ -11,6 +11,11 @@ font: 'fira'
 font_size: L
 
 
+highlight_languages: 
+  - r
+  - latex
+
+
 
 site_type: "Course"
 local_business_type: ''
@@ -30,7 +35,7 @@ instructor:
   github: joshuafayallen
   office: "Langdale 1017"
   contact_policy: >-
-   My name is Josh Allen I am a $4^{th}$ year PhD student in the Department of Political Science here at Georgia State. I will be giving instructing your R workshops this year. Please do not hesistate to reach out to me with questions,
+   My name is Josh Allen I am a 4th year PhD student in the Department of Political Science here at Georgia State. I will be giving instructing your R workshops this year. Please do not hesistate to reach out to me with questions,
 course:
   number: "AY 2022-2023"
   semester: "Fall and Spring"
