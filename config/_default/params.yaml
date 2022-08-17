@@ -10,7 +10,7 @@ day_night: false
 font: 'fira'
 font_size: L
 
-# SEO
+
 
 site_type: "Course"
 local_business_type: ''
@@ -107,8 +107,6 @@ address_format: en-us
 highlight: true
 highlight_languages:
   - r
-  - python
-  - latex
 highlight_style: "solarized-light"
 math: true
 diagram: false
@@ -131,7 +129,7 @@ show_related:
 reading_time: true
 section_pager: false
 docs_section_pager: true
-sharing: true
+sharing: false
 copyright_license:
   enable: false
   allow_derivatives: false
@@ -172,7 +170,7 @@ search:
     app_id: ''
     api_key: ''
     index_name: ''
-    show_logo: false
+    show_logo: true
 map:
   provider: mapnik
   api_key: ''
