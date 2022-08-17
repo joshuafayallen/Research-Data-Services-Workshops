@@ -22,9 +22,14 @@ links:
 
 Grant McDermot's excellent [Data Science for Economists](https://github.com/uo-ec607/lectures)
 
-[R Cookbook, 2nd Edition](https://rc2e.com/)  J.D. Long & Paul Teetor
+[R Cookbook, 2nd Edition](https://rc2e.com/) by J.D. Long & Paul Teetor
 
 [Fast Lane to Learning R](https://github.com/matloff/fasteR) by Norm Matloff 
+
+[Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/) by [Allison Horst](https://allisonhorst.github.io/palmerpenguins/), [Alison Hill](https://www.apreshill.com/), and [Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php)
+
+
+
 
 
 ## Your Turn Excercise 1 
