@@ -27,7 +27,16 @@ pacman::p_load("palmerpenguins", "flair", "knitr", "kableExtra",
 
 penguins = penguins
 
+data1 <- data.frame(ID = 1:2,                      # Create first example data frame
+                    X1 = c("a1", "a2"),
+                    stringsAsFactors = FALSE)
+data2 <- data.frame(ID = 2:3,                      # Create second example data frame
+                    X2 = c("b1", "b2"),
+                    stringsAsFactors = FALSE)
+
 starwars = dplyr::starwars
+
+
 xaringanExtra::use_share_again()
 xaringanExtra::style_share_again()
 xaringanExtra::use_tile_view()
@@ -809,6 +818,264 @@ countdown::countdown(minutes = 3, sound = TRUE)
 
 ---
 
+---
+class: center, middle, inverse
+
+# Other useful dplyr stuff
+
+
+---
+
+
+
+---
+# Joins 
+
+- Often times we need to get data from another dataset
+
+- In `Dplyr` we use join operations
+  - What each of the below joins are doing are elaborated more in [R for Data Science](https://r4ds.hadley.nz/joins.html)
+  
+- `inner_join(df1, df2)`
+- `left_join(df1, df2)`
+- `right_join(df1, df2)`
+- `full_join(df1, df2)`
+- `semi_join(df1, df2)`
+- `anti_join(df1, df2)`
+
+
+
+---
+
+---
+# Joins
+
+- The basic syntax for each join is the same `_join(df1, df2, by = "var I want to join on)`
+
+- The `by` argument can take a list of variables or you can just let dplyr guess(bad idea)
+
+- Each join does something different and some are more cautious than others
+
+- I tend to use `left_join` the most and is handy when you are trying to fill in gaps in panel data
+.pull-left[
+```{r eval=FALSE}
+data1 = data.frame(ID = 1:2,                      # Create first example data frame
+                    X1 = c("a1", "a2"),
+                    stringsAsFactors = FALSE)
+```
+
+```{r echo= FALSE}
+data1 |> 
+  knitr::kable(format = "html")
+```
+
+
+]
+
+.pull-right[
+
+```{r eval=FALSE}
+data2 = data.frame(ID = 2:3,                      # Create second example data frame
+                    X2 = c("b1", "b2"),
+                    stringsAsFactors = FALSE)
+```
+
+```{r echo=FALSE}
+
+data2 |> knitr::kable(format = "html")
+
+```
+
+]
+---
+
+---
+# left_join()
+
+
+
+```{r eval=FALSE}
+left_join(data1, data2, by = "ID")
+```
+
+```{r echo=FALSE}
+left_join(data1, data2, by = "ID") |> knitr::kable(format = "html")
+```
+
+
+
+---
+
+---
+# Using "Real" Data 
+
+```{r echo=FALSE}
+national_data <- tribble(
+  ~state, ~year, ~unemployment, ~inflation, ~population,
+  "GA",   2018,  5,             2,          100,
+  "GA",   2019,  5.3,           1.8,        200,
+  "GA",   2020,  5.2,           2.5,        300,
+  "NC",   2018,  6.1,           1.8,        350,
+  "NC",   2019,  5.9,           1.6,        375,
+  "NC",   2020,  5.3,           1.8,        400,
+  "CO",   2018,  4.7,           2.7,        200,
+  "CO",   2019,  4.4,           2.6,        300,
+  "CO",   2020,  5.1,           2.5,        400
+)
+
+national_libraries <- tribble(
+  ~state, ~year, ~libraries, ~schools,
+  "CO",   2018,  230,        470,
+  "CO",   2019,  240,        440,
+  "CO",   2020,  270,        510,
+  "NC",   2018,  200,        610,
+  "NC",   2019,  210,        590,
+  "NC",   2020,  220,        530,
+)
+
+national_data_2019 <- national_data %>% 
+  filter(year == 2019) %>% select(-year)
+
+national_libraries_2019 <- national_libraries %>% 
+  filter(year == 2019) %>% select(-year)
+
+state_regions <- tribble(
+  ~region, ~state,
+  "Northeast", c("CT", "ME", "MA", "NH", "RI", "VT", "NJ", "NY", "PA"),
+  "Midwest", c("IL", "IN", "MI", "OH", "WI", "IA", "KS", "MN", "MO", "NE", "ND", "SD"),
+  "South", c("DE", "FL", "GA", "MD", "NC", "SC", "VA", "DC", "WV", "AL", "KY", "MS", "TN", "AR", "LA", "OK", "TX"),
+  "West", c("AZ", "CO", "ID", "MT", "NV", "NM", "UT", "WY", "AK", "CA", "HI", "OR", "WA")
+) %>% unnest(state) %>% 
+  arrange(state)
+
+
+
+```
+
+
+.pull-left[
+
+```{r eval=FALSE}
+national_data
+```
+
+```{r echo=FALSE}
+national_data |> 
+  knitr::kable(format = "html")
+```
+
+
+]
+
+.pull-right[
+
+```{r eval=FALSE}
+national_libraries
+```
+
+```{r echo=FALSE}
+national_libraries |> 
+  knitr::kable(format = "html")
+```
+
+
+
+]
+
+---
+
+---
+# Joins(cont)
+
+
+
+```{r eval=FALSE}
+national_combined = left_join(national_data, national_libraries, 
+                                    by = c("state", "year")) 
+
+national_combined
+```
+
+
+```{r echo=FALSE}
+
+national_data |> 
+  left_join(national_libraries, by = c("state", "year")) |> 
+  knitr::kable(format = "html")
+
+
+```
+
+---
+---
+layout: false 
+
+```{r eval=FALSE}
+national_combined = national_data |> 
+  left_join(national_libraries, by = c("state", "year"))
+
+
+national_combined
+```
+
+```{r echo=FALSE}
+national_data |> 
+  left_join(national_libraries, by = c("state", "year")) |> 
+  knitr::kable(format = "html")
+```
+
+
+
+---
+
+---
+# Joins continued 
+.pull-left[
+```{r echo=FALSE}
+
+national_data |> 
+  knitr::kable(format = "html")
+
+```
+]
+
+
+.pull-right[
+
+```{r echo=FALSE}
+national_libraries = national_libraries |> 
+  rename(statename = state)
+
+national_libraries |> knitr::kable(format = "html")
+
+```
+
+
+
+]
+---
+
+---
+# Joins(cont)
+
+
+```{r eval=FALSE}
+national_data |> 
+  left_join(national_libraries, by = c("state" = "statename", "year"))
+
+
+```
+
+
+
+```{r echo=FALSE}
+national_data |> 
+  left_join(national_libraries, by = c("state" = "statename", "year")) |> 
+  knitr::kable(format = "html")
+```
+
+
+---
 
 ---
 class: center, middle
@@ -850,8 +1117,9 @@ Lets take a look at some wide data here we are looking at billboard top hits. I 
 
 
 ---
+# Making Data Longer
 
-```{r}
+```{r eval= FALSE}
 relig_income |> 
   pivot_longer(!religion, names_to = "income", values_to = "count" )
 
@@ -859,14 +1127,68 @@ relig_income |>
 ```
 
 
-```{r}
-head(billboard)
+```{r echo=FALSE}
 
-billboard |> 
-  pivot_longer( cols = starts_with("wk"),  names_to = "Week",, names_prefix = "wk"  , values_to = "rank")
-
+relig_income |> 
+  pivot_longer(!religion, names_to = "income", values_to = "count" ) |> 
+  head(10) |> 
+  knitr::kable(format = "html")
 
 
 ```
 
+
 ---
+
+---
+# More Complex Example 
+
+```{r eval=FALSE}
+
+data("billboard")
+
+```
+
+```{r echo=FALSE}
+data("billboard")
+billboard |> 
+  select(1:8) |> 
+  knitr:: kable(format = "html")
+
+```
+
+
+
+---
+
+---
+# Using Your Helpers
+
+```{r eval=FALSE}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), #<<
+    names_to = "week",
+    names_prefix = "wk",
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+```
+
+
+```{r echo=FALSE}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    names_prefix = "wk",
+    values_to = "rank",
+    values_drop_na = TRUE
+  ) |> 
+  knitr::kable(format = "html")
+```
+
+
+---
+
+
