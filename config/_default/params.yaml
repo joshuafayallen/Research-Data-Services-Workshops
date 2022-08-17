@@ -12,7 +12,7 @@ font_size: L
 
 # SEO
 
-site_type: Person
+site_type: "Course"
 local_business_type: ''
 org_name: ''
 description: ''
@@ -84,7 +84,7 @@ math: true
 diagram: false
 privacy_pack: false
 edit_page:
-  repo_url: ''
+  repo_url: 'https://github.com/joshuafayallen/Research-Data-Services-Workshops'
   content_dir: ''
   repo_branch: main
   editable:
