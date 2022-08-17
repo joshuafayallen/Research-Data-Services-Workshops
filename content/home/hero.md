@@ -1,28 +1,21 @@
 ---
 widget: hero
 headless: true
-active: false
+active: TRUE
 weight: 10
-title: Hugo Academic Theme
-hero_media: hero-academic.png
-cta:
-  label: '**Get Started**'
-  url: https://wowchemy.com/hugo-themes/
-cta_alt:
-  label: Ask a question
-  url: https://discord.gg/z8wNYzb
-cta_note:
-  label: >-
-    <a class="js-github-release" href="https://github.com/wowchemy/wowchemy-hugo-themes/releases" data-repo="wowchemy/wowchemy-hugo-themes">Latest release<!-- V --></a><div style="text-shadow: none;"><a class="github-button" href="https://github.com/wowchemy/wowchemy-hugo-themes" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star">Star Wowchemy site builder for Hugo</a></div><div style="text-shadow: none;"><a class="github-button" href="https://github.com/wowchemy/starter-hugo-academic" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star">Star the Academic template</a></div>
+title: R Workshops
+hero_media: avatar.png
 design:
   background:
-    gradient_end: '#1976d2'
-    gradient_start: '#004ba0'
+    # Background gradient
+    gradient_start: '#2c3e50'
+    gradient_end: '#3498db'
+
+    # Text color (true=light or false=dark).
     text_color_light: true
-advanced:
-  css_class: fullscreen
+
+cta_note:
+  label: AY 2022-2023<br>Library<br>Georgia State University
 ---
 
-**The FREE, Hugo-based open source website builder and template trusted by 500,000+ sites.**
 
-**Build anything with widgets** - from landing pages, knowledge bases, and courses to academic resumés, conferences, and tech blogs.
