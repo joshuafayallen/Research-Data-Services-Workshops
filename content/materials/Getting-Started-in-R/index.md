@@ -1,7 +1,7 @@
 ---
 title: "Getting Started in R"
 linktitle: "Getting Started in R"
-date: "2022-09-07"
+date: "2022-08-07"
 menu:
   materials:
     parent: Materials

@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Getting Started in R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Josh Allen" />
+    <meta name="date" content="2022-08-16" />
+    <script src="Getting-Started-in-R_files/header-attrs-2.14/header-attrs.js"></script>
+    <script src="Getting-Started-in-R_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="Getting-Started-in-R_files/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="Getting-Started-in-R_files/shareon-1.4.1/shareon.min.js"></script>
+    <link href="Getting-Started-in-R_files/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="Getting-Started-in-R_files/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="Getting-Started-in-R_files/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="Getting-Started-in-R_files/tile-view-0.2.6/tile-view.js"></script>
+    <link href="Getting-Started-in-R_files/countdown-0.3.5/countdown.css" rel="stylesheet" />
+    <script src="Getting-Started-in-R_files/countdown-0.3.5/countdown.js"></script>
+    <link rel="stylesheet" href="gsu-css/gsu.css" type="text/css" />
+    <link rel="stylesheet" href=" gsu-css/gsu-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Getting Started in R
+]
+.author[
+### Josh Allen
+]
+.institute[
+### Department of Political Science
+]
+.institute[
+### Georgia State University
+]
+.date[
+### 2022-08-16
+]
+
+---
+
+
+
+
+
+
+---
+# Why R and RStudio?
+
+&lt;img src="figs/grants-plot-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+???
+
+R is a vastly popular language in the datascience industry. While it is less popular than sequel or Python it is still one of the most heavily demanded language from private industry. R is also becoming wildly popular in econ and political science because not only is it free but it is a great skill to have given the difficulties of the academic job market. I am political scientist so I will mostly making these references. The Rstudio team in particular has worked really hard on adding support for Python, Julia, and java. 
+
+---
+
+---
+# Why R and RStudio?(cont)
+
+### Data science reasons 
+
+- Alongside Python, R has become the *de facto* language for data science.
+  - See: [*The Impressive Growth of R*](https://stackoverflow.blog/2017/10/10/impressive-growth-r/), [*The Popularity of Data Science Software*](http://r4stats.com/articles/popularity/)
+- Open-source (free!) with a global user-base spanning academia and industry.
+
+### Personal Benefits
+- The community is insanely nice
+  - Especially compared to Python and Stata
+  
+- A great "first" language to learn
+  - Source: [Google Data Analytics Professional Certificate](https://www.coursera.org/professional-certificates/google-data-analytics?irclickid=T1LQYH0NXxyNUwfyCLUQjRO9UkD3oW1kE3Q4100&amp;irgwc=1&amp;utm_medium=partners&amp;utm_source=impact&amp;utm_campaign=2946137&amp;utm_content=b2c#faq)
+
+- Supports all types of statistical methods and data collecion 
+
+
+---
+
+---
+# R? Rstudio? Whats the Difference?
+
+- R is a statistical programming language
+- RStudio is a convenient interface for R (an integrated development environment, IDE)
+- At its simplest:
+    - R is like a car’s engine
+    - RStudio is like a car’s dashboard
+
+&lt;img src="pics/engine-dashboard.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+???
+The most common way that we interact with R is through  Rstudio you can technically run R by just opening R and typing in code. But most people do not do this. Rstudio has lots of handy features that help you. Much like a car. If we didnt have the dashboard but still had the engine and some wheels and a steering we could drive the car if needed. However a car with a dashboard lets us figure out what the car is doing more easily 
+---
+
+
+
+---
+# I Have Downloaded Rstudio Now What? 
+
+
+&lt;img src="figs/script-new.png" title="Opening an R script through drop down on the top left or command shift n on mac" alt="Opening an R script through drop down on the top left or command shift n on mac" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+
+???
+
+Hopefully You Have downloaded the Approriate Version of R and Rstudio for your Operating system. Now we need to know where we can start putting stuff. And it should look something like you can just start typing code into the console window if you want. But for the most part that is a bad idea. Because you will not be able to remember what you have done and more importantly you are going to have to redo it all each time. 
+
+
+Best Practices are for you to work in an R script file. Later on in the semster we will hopefully have a workshop on getting started in Rmarkdown but for now just click on r script file if you are follwing along.
+
+
+
+---
+
+---
+# Setting Your Working Directory
+
+- Your working directory is where all your files live
+
+- You may know where they are... 
+
+- But R does not
+
+- If you want to use any data that does not come with a package you are going to need to tell R where it lives
+
+
+---
+
+---
+# Cats and Boxes
+
+
+
+&lt;img src="figs/cats-boxes.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+- You .vero-teal[can] put a box inside a box
+
+- You .vero-teal[can] put a cat inside a box
+
+- You .vero-teal[can] put a cat inside a box inside of a box
+
+- You .vero-red[cannot] put a box inside a cat
+
+- You .vero-red[cannot] put cat in a cat
+
+.footnote[source : [Rob Williams](https://twitter.com/jayrobw/status/1440728633845248000)]
+???
+How working directories work is that they are comprised of files and folders. You need to let R know what file is in what folder. The last thing in the setting working directory call is a file usually. The cat analogy is helpful to think of how we find stuff in your computer. We can think of the boxes as folders and the cats as files.
+---
+
+
+---
+# Setting Your Working Directory(cont)
+.pull-left[
+### Seeing What Working Directory You are Using 
+
+```r
+getwd()# The working directory where all the materials for the workshops live
+```
+
+```
+[1] "/Users/josh/Dropbox/Research-Data-Services-Workshops/website/static/slides/Getting-Started-in-R"
+```
+]
+
+.pull-right[
+
+### Setting Your Working Directory
+
+
+```r
+setwd("your/working/directory/here") # sets the working directory on mac
+setwd("your\working\directory\here") # sets the working directory on windows
+```
+
+]
+---
+
+
+
+
+
+---
+# How To Make Your Life Easier 
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figs/projects-jenny-bryan.png" alt="source: Jenny Bryan" width="50%" /&gt;
+&lt;p class="caption"&gt;source: Jenny Bryan&lt;/p&gt;
+&lt;/div&gt;
+
+???
+While setting your working directory manually is fine it is a lot more fragile. If you collaborate with people now or in the future they are going to have to manually set the working directory on their computer. Each time.
+
+R projects are great because they will just set the working directory to wherever the project is living. The additional benefit is that it will restart R. Which is good because R will just keep lots of packages loaded in the background. This can cause what are called namespace conflicts. This used to be really bad with plyr and dplyr but plyr has since been retired. Truly problematic namespace conflicts are not something that I have experienced but they do happen. Fresh R sessions are the easiest way to avoid them
+
+---
+
+
+---
+# Objects
+
+- Everything is an object
+
+- Everything has a name 
+
+- You do stuff with functions 
+
+- Packages(i.e. libraries) are homes to pre-written functions.
+  - You can also write your own functions and in some cases should.
+
+
+
+
+???
+Before we start R is an object oriented programming we work with objects. Objects are what we work with in R they can be various classes. The class of an object sets out strict limitations on what R can do with those objects but just as importantly it tells R what it can't do with those objects. While sometimes it is frustrating because sometimes you just want to do a thing it helps you protect your from yourself. 
+
+ If R can do it than it will but it is not necessarily a good idea because it can differ from what you want it to do. 
+
+
+---
+
+---
+# Install and loading packages
+
+- .bold[Console or Script]  `install.packages("package-i-need-to-install")`
+  - In the case of multiple packages you can do `install.packages(c("Packages", "I", "don't","have"))`
+
+- .bold[RStudio] Click the "Packages" tab in the bottom-right window pane. Then click "Install" and search for these two packages.
+
+![](pics/install.gif)
+
+.footnote[Gif source: [](https://grantmcdermott.com/)]
+???
+Credit for the Gif goes to Grant Mcdermott. As we will learn there are lots of ways to do one thing in R and the packages that are loaded when you open up R have lots of important things that you will use to just do some simple analysis or if you want to build your own functions.
+---
+
+---
+## Install and load(cont.)
+
+ Once the packages are installed we need load them into our `R` session with the  `library()` function 
+ 
+ 
+
+```r
+library(Package)
+library(I)
+library(JustInstalled)
+```
+ 
+Notice too that you don't need quotes around the package names any more. Reason: R now recognises these packages as defined objects with given names. ("Everything in R is an object and everything has a name.")
+
+---
+
+---
+class: center, middle, inverse
+
+.col[# `R`]
+--
+.col[# Some Basics]
+
+
+---
+
+---
+# Basic Maths
+
+- R is equipped with lots of mathematical operations 
+
+
+```r
+2+2 # addition
+```
+
+```
+[1] 4
+```
+
+```r
+600*100 #multiplication
+```
+
+```
+[1] 60000
+```
+
+```r
+100/10 #division
+```
+
+```
+[1] 10
+```
+
+```r
+10*10/(3^4*2)-2 # Pemdas 
+```
+
+```
+[1] -1.382716
+```
+
+
+
+???
+The most common hazing ritual when learning R and object oriented programming is using R as calculator. Since we most often use it for advanced statistical analysis it should be able to handle lots things we can throw at it 
+
+
+
+---
+
+---
+# Basic Maths
+
+R is also equipped with modulo operations (integer division and remainders), matrix algebra, etc
+
+
+```r
+100 %/% 60 ## How many whole hours in 100 minutes?
+```
+
+```
+[1] 1
+```
+
+```r
+100 %% 60 ## How many minutes are left over?
+```
+
+```
+[1] 40
+```
+
+???
+There are lots of other useful mathematical operations we can use in R to make our lives a lot easier or if you are in the postion of having to hand calculate them either because your professor is making you or you want to make sure your new cool estimator is available for other people to use you can do that. In this case we are doing this by "hand". 
+---
+
+---
+# Logical Statements &amp; Booleans
+
+
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th class="cell-center"&gt;Test&lt;/th&gt;
+    &lt;th class="cell-left"&gt;Meaning&lt;/th&gt;
+    &lt;th class="cell-center"&gt;Test&lt;/th&gt;
+    &lt;th class="cell-left"&gt;Meaning&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;x &lt; y&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Less than&lt;/td&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;x %in% y&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;In (group membership)&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;x &gt; y&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Greater than&lt;/td&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;is.na(x)&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Is missing&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;==&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Equal to&lt;/td&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;!is.na(x)&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Is not missing&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;x &lt;= y&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Less than or equal to&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;x &gt;= y&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Greater than or equal to&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class="cell-center"&gt;&lt;code class="remark-inline-code"&gt;x != y&lt;/code&gt;&lt;/td&gt;
+    &lt;td class="cell-left"&gt;Not equal to&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+
+
+
+???
+R comes with  standard set of boolean operators these are the common ones that you will use or run into in the wild. Note that to say something equals something because in R = is used in 2 different ways either as passing arguments off to a function or for assignment.
+
+---
+
+---
+# Booleans and Logicals in Action
+
+
+
+```r
+1&gt;2 
+```
+
+```
+[1] FALSE
+```
+
+```r
+1&lt;2
+```
+
+```
+[1] TRUE
+```
+
+```r
+1 == 2
+```
+
+```
+[1] FALSE
+```
+
+```r
+1 &lt; 2 | 3 &gt; 4 # only one test needs to true to return true
+```
+
+```
+[1] TRUE
+```
+
+```r
+1 &lt; 2 &amp; 3&gt;4 # both tests must be true to return true
+```
+
+```
+[1] FALSE
+```
+
+
+
+
+---
+
+---
+# Logicals, Booleans, and Precedence
+
+- `R` like most other programming languages will evaluate our logical operators(`==`, `&gt;`, etc) before our booleans(`|`, `&amp;`, etc).
+
+
+```r
+1 &gt; 0.5 &amp; 2
+```
+
+```
+[1] TRUE
+```
+
+--
+
+What's happening here is that R is evaluating two separate "logical" statements: 
+ - `1 &gt; 0.5`, which is is obviously TRUE.
+ - `2`, which is TRUE(!) because R is "helpfully" converting it to `as.logical(2)`.
+ 
+--
+- It is way safer to make explicit what you are doing.
+
+```r
+1 &gt; 0.5 &amp; 1 &gt; 2
+```
+
+```
+[1] FALSE
+```
+
+
+???
+Computer operations have a pemdas of their own so when you are milling about in R it is important to remember how you set up your tests 
+
+
+---
+
+---
+# Other Useful Tricks
+## Value matching using `%in%`
+
+
+To see whether an object is contained within (i.e. matches one of) a list of items, use `%in%`.
+
+```r
+4 %in% 1:10
+```
+
+```
+[1] TRUE
+```
+
+```r
+4 %in% 5:10
+```
+
+```
+[1] FALSE
+```
+
+---
+
+---
+# Cool Now What?
+
+- While this is boring it opens up lots 
+
+--
+
+- We may need to set up a group of tests to do something to data.
+--
+
+- We may need all this math stuff to create new variables
+
+- However we need to ***Assign them*** to reuse
+  - Including datasets 
+
+.footnote[Later in the semester we can modify in place but that is running before we are walking]
+???
+R as a calculator and evaluating whether 1 is greater than 2 gets very tiring like as soon as you start doing it and is hardly ever that practical. 
+
+
+---
+
+---
+# Assignment 
+
+- The most popular assigment operator in R is `&lt;-` which is just `&lt;` followed by `-`
+  - read aloud as "gets"
+
+
+```r
+a &lt;- 2 + 2
+
+a * 2
+```
+
+```
+[1] 8
+```
+
+- You can also use `-&gt;` but this is far less common and makes me uncomfortable 
+
+
+```r
+ a^2 -&gt; b
+```
+
+
+???
+
+Assignment might be a foregin concept to you if you have no coding experience or making the transition from excel or stata. Basically if you go through and copy and paste all this stuff into an R script it will run but we will not be able to use this. 
+
+So using our friend gets we can assign 2 + 2 to a or in the parlance of R a gets 2 + 2 this lets us reuse it later whether we want to perform additional maths or use it for later
+
+---
+
+---
+# Assignment(cont)
+
+- using `=` as an assignment operator also works and is the one I tend to use 
+  - Note: `=` is also used to evaluate arguments *within* functions
+  
+  
+
+```r
+b = b * 2
+
+d = b/3
+```
+
+
+- Tbh this is a matter of taste really. 
+- Just keep it consistent.. or become ungovernable and use all three in one script.
+  - I am not responsible for you getting yelled at on Stackoverflow if you do this.
+
+.footnote[More discussion [here](https://github.com/Robinlovelace/geocompr/issues/319#issuecomment-427376764) and [here](https://www.separatinghyperplanes.com/2018/02/why-you-should-use-and-never.html)]
+
+???
+
+To be honest R purists are one of the last hold outs of using the gets operator essentially back in the main frame computer days there was a physical key that would do this for you. R is actually really really old so there are some quirks to it that bug lots of people. We are not going to get into it any further in this workshop but if you have prior experience in an object oriented language R will be a bit peculiar at times. Like in somne cases position of the argument does not matter indentation does not matter which will really throw you off if you are coming from python or vice versa 
+
+---
+
+---
+# Working with Objects 
+
+- Lets run a simple regression using e
+
+
+```r
+e = data.frame(x = 1:2,
+               y = 1:2)
+```
+
+
+
+```r
+lm(y~x)
+```
+
+```
+Error in eval(predvars, data, env): object 'y' not found
+```
+
+
+
+
+---
+
+---
+# Global Environment(cont)
+
+
+```
+Error in eval(predvars, data, env): object 'y' not found
+```
+
+Gives us a hint out about what went wrong
+
+![No "x" or "y" here...](figs/environment.png)
+
+
+???
+If we look at the global environment Y does not exist as an object but lots of other stuff does that is not. 
+
+Because x and y live within e we need to tell that they belong to e so to fix it we would need to tell lm where y and x 
+
+---
+
+
+---
+class: center, middle, inverse
+
+# Everything is an Object
+
+---
+
+---
+# What are Objects?
+
+- Objects are what we work with in `R`
+
+
+
+```
+ [1] "is.array"                "is.atomic"              
+ [3] "is.call"                 "is.character"           
+ [5] "is.complex"              "is.data.frame"          
+ [7] "is.double"               "is.element"             
+ [9] "is.environment"          "is.expression"          
+[11] "is.factor"               "is.finite"              
+[13] "is.function"             "is.infinite"            
+[15] "is.integer"              "is.language"            
+[17] "is.list"                 "is.loaded"              
+[19] "is.logical"              "is.matrix"              
+[21] "is.na"                   "is.na.data.frame"       
+[23] "is.na.numeric_version"   "is.na.POSIXlt"          
+[25] "is.na&lt;-"                 "is.na&lt;-.default"        
+[27] "is.na&lt;-.factor"          "is.na&lt;-.numeric_version"
+[29] "is.name"                 "is.nan"                 
+[31] "is.null"                 "is.numeric"             
+[33] "is.numeric_version"      "is.numeric.Date"        
+[35] "is.numeric.difftime"     "is.numeric.POSIXt"      
+[37] "is.object"               "is.ordered"             
+[39] "is.package_version"      "is.pairlist"            
+[41] "is.primitive"            "is.qr"                  
+[43] "is.R"                    "is.raw"                 
+[45] "is.recursive"            "is.single"              
+[47] "is.symbol"               "is.table"               
+[49] "is.unsorted"             "is.vector"              
+[51] "isa"                     "isatty"                 
+[53] "isBaseNamespace"         "isdebugged"             
+[55] "isFALSE"                 "isIncomplete"           
+[57] "isNamespace"             "isNamespaceLoaded"      
+[59] "isOpen"                  "isRestart"              
+[61] "isS4"                    "isSeekable"             
+[63] "isSymmetric"             "isSymmetric.matrix"     
+[65] "isTRUE"                 
+```
+
+
+
+???
+Using a bit of R we can see all the different logical tests that tests the class of objects in R. Here you can see that there are lots 
+
+---
+
+
+---
+# The Usual Suspects
+
+- vectors
+- matrices
+- data frames
+- dates
+- lists
+- functions
+
+
+```r
+f = cbind(a,b) # this will just create a matrix 
+class(f)# lets us check the class of something 
+```
+
+```
+[1] "matrix" "array" 
+```
+
+```r
+g = as.data.frame(f) # converts to a different class
+str(g) # shows some info about the structure of the object
+```
+
+```
+'data.frame':	1 obs. of  2 variables:
+ $ a: num 4
+ $ b: num 32
+```
+
+```r
+typeof(g) # shows how r is storing the object object
+```
+
+```
+[1] "list"
+```
+
+
+???
+
+These are the ones that tend to come up most regularly used. You can also coerce once class to another. Using as will just force something to be a different class.
+
+Why type of returns list: data.frame and data.table are both collections (lists) of items (vectors, if you will), each item of the same length (ie each column is an item in the list, internally to R anyway). This is why unlike in a matrix, columns can have different classes.
+---
+
+---
+# A Quick Aside on Naming Stuff
+### Things we can never name stuff
+
+The reason we can't use any of these are because they are reserved for R
+
+```R
+if 
+else 
+while 
+function 
+for
+TRUE 
+FALSE 
+NULL 
+Inf 
+NaN 
+NA 
+```
+
+.footnote[[There are more see this website for a more complete list](http://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html)]
+
+???
+If you have noticed every object in our little session has a name. But we should be careful about what we name our stuff. We can technically name our objects just about anything except these because they are reserved for R 
+---
+
+---
+# A Quick Aside on Naming Stuff(cont)
+### Semi-reserved words 
+
+
+
+For simple things like assigning `c = 4 ` and then doing `d = c(1,2,3,4)` R will be able to distinguish between assign c the value of 4 and the `c` that calls `concatenate` which is way more important in R.
+
+However it is generally a good idea, *unless you know what you are doing*, to avoid naming things that are functions in `R` because `R` will get confused which will lead to strange behavior.
+
+---
+
+
+
+---
+class: center, middle, inverse 
+
+# Working with Objects in R 
+
+
+---
+
+---
+# The Data We are Working With
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://raw.githubusercontent.com/andrewheiss/2021-seacen/main/02_data-visualization/slides/img/lter_penguins.png" alt="artwork by @allison_horst" width="70%" /&gt;
+&lt;p class="caption"&gt;artwork by @allison_horst&lt;/p&gt;
+&lt;/div&gt;
+???
+Today we are going to be using data from the Palmer Penguins R package. This is data that documents various measurement of penguin species from Palmer station. There are a few arguments we can use but I will show you first how to import the penguin data
+
+
+---
+
+---
+# Importing Data
+- You have the option of pointing and clicking via import dataset
+
+- I would recommend importing data via code
+  - You don't have to remember what you named the object when writing the first script
+  - Saves you time 
+  - All the cool kids do it.
+
+
+```r
+penguins = read.csv("data/penguins.csv")
+```
+
+???
+Remember to work and reuse stuff in R we need to assign it to an object. So first we need to make sure our working directory is set to the correct one. In my case I am keeping the penguins in a data folder
+---
+
+
+---
+class:inverse
+# Your Turn
+
+- read in the data included to the website using `read.csv`
+  - What happens when you do not assign the dataset?
+  
+- assign the `penguins` dataset to an object named penguins
+
+- use `View`, `head`, and `tail` to inspect the dataset
+
+- using `install.packages()` install ggplot2
+
+---
+
+
+
+---
+# Our Data
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; island &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bill_length_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bill_depth_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; flipper_length_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; body_mass_g &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 181 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3750 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 186 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3800 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 195 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3250 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 193 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3450 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3650 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+???
+Using the magical penguin data we will leave you here with some sort of actionable stuff
+---
+
+
+---
+# Indexing  `[]`
+
+- We can use `[]` to index objects. 
+
+- There are two slots we can use *rows* and *columns* in the brackets if we are using a dataframe like this. 
+ - `object_name[rows, columns]`
+ 
+.pull-left[
+
+```r
+penguins[1,1]
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right[
+We can also subset our data by column position using `:` or `c(column 1, column 2)`
+
+```r
+penguins[1,1:2]
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; island &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+]
+
+
+
+???
+knowing how to index stuff is important because often times we neeed to tell R what to get. Which is pretty critical especially if we want to use all the flexibility of R. I use lists a lot to report coefficients from a regression or to automatically update my syllabus when things change.
+
+---
+
+
+---
+# Indexing  `[]` (cont)
+
+
+- Lists are super flexible and complex. Lists can hold lots of different types of stuff in one. You can stack vectors, scalars, other lists and dataframes on top of each other. 
+  - Notice that indexing in `R` starts at 1 
+- We can tell R what element of a list using a combo of `[]` and `[[]]`
+
+
+
+```r
+my_list = list(a = 1:4, b = "Hello World", c = data.frame(x = 1:3, y = 4:6))
+```
+
+
+```r
+my_list[[1]][2] # get the first item in the list and the second element of that item
+```
+
+```
+[1] 2
+```
+
+```r
+my_list[[2]]
+```
+
+```
+[1] "Hello World"
+```
+
+```r
+my_list[[3]][1]
+```
+
+```
+  x
+1 1
+2 2
+3 3
+```
+
+---
+
+---
+# Negative Indexing
+
+- We can also exclude various elements using `-` and/or tests that showed you earlier
+
+
+
+```r
+penguins[,-1]
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; island &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bill_length_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bill_depth_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; flipper_length_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; body_mass_g &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 181 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3750 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 186 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3800 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 195 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3250 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 193 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3450 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torgersen &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 39.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3650 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+---
+# Negative Indexing(cont)
+
+- We can use the same things in negative indexing to omit stuff
+
+
+.pull-left[
+
+```r
+penguins[,-(1:4)]
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; flipper_length_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; body_mass_g &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 181 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3750 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 186 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3800 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 195 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3250 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 193 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3450 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3650 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2007 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+]
+
+.pull-right[
+
+
+```r
+penguins[,-c(2,3,5,8)]
+```
+
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bill_depth_mm &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; body_mass_g &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3750 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3800 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3250 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3450 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3650 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; male &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+]
+
+---
+
+---
+# Subsetting By Tests
+
+
+```r
+penguins[penguins["sex"] == "female", c("species", "sex")]
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sex &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; female &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+---
+# `$` Indexing 
+
+A really useful way of indexing in `R` is referencing stuff by name rather than position. 
+  - The way we do this is throught the `$`
+  
+
+```r
+my_list$a
+```
+
+```
+[1] 1 2 3 4
+```
+
+```r
+my_list$b
+```
+
+```
+[1] "Hello World"
+```
+
+```r
+my_list$c
+```
+
+```
+  x y
+1 1 4
+2 2 5
+3 3 6
+```
+
+
+
+
+---
+
+---
+# Indexing(cont)
+
+
+```r
+my_list$c[2] # these are just returning the same thing 
+```
+
+```
+  y
+1 4
+2 5
+3 6
+```
+
+```r
+my_list$c$y
+```
+
+```
+[1] 4 5 6
+```
+
+???
+You can also use brackets to pick which element of the thing you want to figure out is. These are all important to know or be aware of all the ways you can find something you need. And like a lot of things in R there are tons of ways to get the same task done. The right way is what returns the right answer for you is the solution. Worry about speeding things up later.
+
+---
+
+---
+
+
+---
+# `$` in action
+
+This will just subset things
+
+```r
+penguins[penguins$species == "Gentoo", c("species", "island", "bill_length_mm")] 
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; island &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bill_length_mm &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 48.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 45.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Biscoe &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46.8 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+# `$` in action(cont)
+
+
+```r
+summary(penguins)
+```
+
+```
+      species          island    bill_length_mm  bill_depth_mm  
+ Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10  
+ Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60  
+ Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30  
+                                 Mean   :43.92   Mean   :17.15  
+                                 3rd Qu.:48.50   3rd Qu.:18.70  
+                                 Max.   :59.60   Max.   :21.50  
+                                 NA's   :2       NA's   :2      
+ flipper_length_mm  body_mass_g       sex           year     
+ Min.   :172.0     Min.   :2700   female:165   Min.   :2007  
+ 1st Qu.:190.0     1st Qu.:3550   male  :168   1st Qu.:2007  
+ Median :197.0     Median :4050   NA's  : 11   Median :2008  
+ Mean   :200.9     Mean   :4202                Mean   :2008  
+ 3rd Qu.:213.0     3rd Qu.:4750                3rd Qu.:2009  
+ Max.   :231.0     Max.   :6300                Max.   :2009  
+ NA's   :2         NA's   :2                                 
+```
+
+
+
+
+```r
+mean(penguins$bill_depth_mm)
+```
+
+```
+[1] NA
+```
+--
+
+uh oh what happened? 
+
+
+???
+Okay so now that we have found different ways to index things lets get some summary statistics for our penguins dataframe. We can use column indexing but in our case it will make our lives easier if we use the dollar sign
+---
+
+
+---
+# Finding Help
+
+- Asking for help in R is easy the most common ways are `help(thingineedhelpwith)` and `?thingineedhelpwith`
+
+
+
+
+- `?thingineedhelpwith` is probably the most common because it requires less typing.
+
+???
+
+Notice how R returns NA as the mean. R is generally pretty conservative and will be cautious when you try to get the mean for bill depth it returns NA because there are a few NA values in the column. We will talk about various solutions to getting rid of NA's in data cleaning in a future workshop but for now we may just want to find the mean of our column. Mean and many functions have a way to do this inside them 
+---
+
+---
+# Fixing our issue
+
+- If you noticed in the help documentation there was an argument I did not use `na.rm`
+
+- This will simply remove all the NA's giving which will let us calculate the mean
+  - summary does this by default
+
+- *Good* documentation fluctuates wildly because it is an open source language
+
+--
+- If in doubt 
+
+&lt;img src="pics/stackoverflow.png" width="25%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+
+---
+class:inverse 
+
+# Your Turn
+
+- Find the minimum value of `bill_length_mm`
+
+- Find the maximum value of `body_mass_g`
+
+- Subset the penguins data any way you want using `[]` or `$`
+
+- Assign each of them to an object
+
+- Create a vector of anything you want and find the second thing in that vector using `[]`
+
+- Do the same thing using `$`
+
+<div class="countdown" id="timer_62fbb037" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+
+
+---
+# Some additional useful stuff
+
+- If you think back to when I had you use head and tail `R` told you what the class of each variable
+  - If you forgot just run `head(penguins)` in your R script
+
+- You will notice that `species` and `island` are a factor class so your measures of central tendency are not going to be all that informative. 
+
+- Fortunately `R` comes with some handy functions to use 
+
+- `table` counts each factor level 
+
+- `tapply` will let you group stuff by a factor and get some useful balance statistics 
+
+
+---
+
+---
+# Table 
+
+
+```r
+table(penguins$species)
+```
+
+```
+
+   Adelie Chinstrap    Gentoo 
+      152        68       124 
+```
+
+
+```r
+table(penguins$sex)
+```
+
+```
+
+female   male 
+   165    168 
+```
+
+```r
+anyNA(penguins$sex)
+```
+
+```
+[1] TRUE
+```
+
+???
+table is handy but in some cases it does not give us all the information we need in some cases we might have missing values and table will just ignore them 
+---
+
+
+---
+# tapply and calculating descriptive statistics by groups  
+
+
+```r
+tapply(penguins$species,penguins$island, table)
+```
+
+```
+$Biscoe
+
+   Adelie Chinstrap    Gentoo 
+       44         0       124 
+
+$Dream
+
+   Adelie Chinstrap    Gentoo 
+       56        68         0 
+
+$Torgersen
+
+   Adelie Chinstrap    Gentoo 
+       52         0         0 
+```
+
+
+
+```r
+tapply(penguins$bill_depth_mm, penguins$species, mean, na.rm = TRUE)
+```
+
+```
+   Adelie Chinstrap    Gentoo 
+ 18.34636  18.42059  14.98211 
+```
+
+
+???
+We may want to see where our penguin friends live so we can use tapply which is a handy trick. There will be some convincing you need to do with to make drop the missing values in tapply. I fought with it on the plane so trust me.
+
+---
+
+---
+# Plotting 
+
+
+```r
+plot(penguins$bill_length_mm, penguins$body_mass_g, xlab = "Bill Length(mm)", ylab = "Body Mass(g)")
+```
+
+&lt;img src="figs/unnamed-chunk-49-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+---
+# Plotting(cont)
+
+
+```r
+hist(penguins$bill_length_mm, xlim = c(30, 60))
+```
+
+&lt;img src="figs/unnamed-chunk-50-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+---
+# Cleaning up after yourslef
+
+- `rm(objectname)` will remove the objects you created 
+
+- `rm(list=ls())` will remove all the objects your created
+
+- You can remove packages, sometimes, with `detach(package:packageyouwanttoremove`
+  - This can be iffy for a variety of reasons
+  - Some packages automatically load another package or depend on another.
+
+- However, restarting your `R` session is generally best practice because it will do both 
+
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true,
+"navigation": {
+"scroll": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

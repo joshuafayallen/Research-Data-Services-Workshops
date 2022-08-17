@@ -1,0 +1,1924 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  
+
+  
+  
+  
+    
+  
+  <meta name="description" content="At GSU, we have Early Alert that is meant to connect students with resources if they are not doing well in the first few weeks of classes. While setting up your rules of thumb is up to you, this can quickly soak up an entire day if you are going row by row in your class of 60 or more students." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/solarized-light.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/styles/solarized-light.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.e9dfd0d72348b3575652bf8384f1cedc.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="Research Data Services R Workshops" />
+  <meta property="og:url" content="https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/" />
+  <meta property="og:title" content="Using R to Streamline Midsemester Reports and Grading | Research Data Services R Workshops" />
+  <meta property="og:description" content="At GSU, we have Early Alert that is meant to connect students with resources if they are not doing well in the first few weeks of classes. While setting up your rules of thumb is up to you, this can quickly soak up an entire day if you are going row by row in your class of 60 or more students." /><meta property="og:image" content="https://gsu-data-services-R-workshops.netlify.app/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://gsu-data-services-R-workshops.netlify.app/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2022-03-11T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-03-11T22:57:59-05:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/"
+  },
+  "headline": "Using R to Streamline Midsemester Reports and Grading",
+  
+  "datePublished": "2022-03-11T00:00:00Z",
+  "dateModified": "2022-03-11T22:57:59-05:00",
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Research Data Services R Workshops",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gsu-data-services-R-workshops.netlify.app/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "At GSU, we have Early Alert that is meant to connect students with resources if they are not doing well in the first few weeks of classes. While setting up your rules of thumb is up to you, this can quickly soak up an entire day if you are going row by row in your class of 60 or more students."
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Using R to Streamline Midsemester Reports and Grading | Research Data Services R Workshops</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="df016ff667722da1b80beff901f91e35" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.da42964e270e05a6063fbca894d7ccff.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Research Data Services R Workshops</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Research Data Services R Workshops</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About Me</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/materials/"><span>Materials</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+          
+          <li class="nav-item d-none d-lg-inline-flex">
+            <a class="nav-link" href="https://twitter.com/joshuallen17" data-toggle="tooltip" data-placement="bottom" title="Follow me on Twitter" target="_blank" rel="noopener" aria-label="Follow me on Twitter">
+              <i class="fab fa-twitter" aria-hidden="true"></i>
+            </a>
+          </li>
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Using R to Streamline Midsemester Reports and Grading</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Mar 11, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    9 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/dplyr/">dplyr</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>At GSU, we have <a href="https://success.students.gsu.edu/early-alert/#1491401397066-70b280d0-31cd2fde-8845" target="_blank" rel="noopener">Early Alert</a> that is meant to connect students with resources if they are not doing well in the first few weeks of classes. While setting up your rules of thumb is up to you, this can quickly soak up an entire day if you are going row by row in your class of 60 or more students. To streamline the process I turned to <code>R</code> because it is a fairly simple data cleaning task.</p>
+<p>Our learning management software likes to add lots of extra stuff to the column names in our data. While most of us would come up with a more concise name like <code>Chapter_4</code> our software names is <code>Chapter 4.2 Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;</code>  we could use <code>janitor::clean_names</code> to eliminate some of the extraneous stuff iCollege will get grumpy at us. We could do this in Excel, and I have done it in the past, I figured I could speed this up in <code>R</code> while avoiding the headaches of ensuring each and every column is where it should be.</p>
+<pre><code class="language-r">library(tidyverse)
+
+set.seed(1994)
+
+students = 26
+
+
+dat = tibble(id = 1:26,
+             Students = LETTERS,
+             `Chapter 4.2 Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;` = rnorm(students, mean = 90, sd = 5),
+            `Chapter 4.3 Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;` = rnorm(students, mean = 90, sd = 5),
+            `Chapter 4.4  Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;` = rnorm(students, mean = 90, sd = 5),
+            `Chapter 4.5  Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;` = rnorm(students, mean = 90, sd = 5),
+            `Exam 1 Points Grade &lt;Numeric MaxPoints:55 Weight 10 Category: Exams` = rnorm(students, mean = 85, sd = 3))  
+</code></pre>
+<p>In this simple example there are only 5 columns they have annoying names sure but it is not that bad. We can probably copy and paste them and we will be fine. However, in my real data there are 13 or so chapters with a few subsections in each of them. So this can get out from under us kind of quick and copy and pasting does not make our lives any easier. We also usually get columns that do not help us. Our <code>ID</code> variable is not doing anything other than providing the same info in a less transparent way than the <code>student</code> name variable, and more minor items like surveys which do not have a lot of weight on their final grade.</p>
+<p>I just used <code>rnorm</code> for convenience; however your data is more likely to have some missing values because students did not do stuff so it looks like this.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">id</th>
+<th style="text-align:left">Students</th>
+<th style="text-align:right">Chapter 4.2 Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Chapter 4.3 Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Chapter 4.4  Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Chapter 4.5  Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Exam 1 Points Grade &lt;Numeric MaxPoints:55 Weight 10 Category: Exams</th>
+<th style="text-align:right">surveys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">A</td>
+<td style="text-align:right">83.56343</td>
+<td style="text-align:right">81.70468</td>
+<td style="text-align:right">85.71587</td>
+<td style="text-align:right">85.97115</td>
+<td style="text-align:right">83.71489</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">B</td>
+<td style="text-align:right">91.44406</td>
+<td style="text-align:right">86.12473</td>
+<td style="text-align:right">91.53892</td>
+<td style="text-align:right">91.80590</td>
+<td style="text-align:right">84.62108</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">C</td>
+<td style="text-align:right">98.50185</td>
+<td style="text-align:right">89.76872</td>
+<td style="text-align:right">91.79794</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">85.11662</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">D</td>
+<td style="text-align:right">96.99304</td>
+<td style="text-align:right">88.53903</td>
+<td style="text-align:right">83.42538</td>
+<td style="text-align:right">92.42625</td>
+<td style="text-align:right">86.08429</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">E</td>
+<td style="text-align:right">90.49552</td>
+<td style="text-align:right">92.64055</td>
+<td style="text-align:right">93.27846</td>
+<td style="text-align:right">89.24096</td>
+<td style="text-align:right">80.39882</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">F</td>
+<td style="text-align:right">83.30126</td>
+<td style="text-align:right">86.91250</td>
+<td style="text-align:right">90.75522</td>
+<td style="text-align:right">83.04509</td>
+<td style="text-align:right">78.98100</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:left">G</td>
+<td style="text-align:right">94.03755</td>
+<td style="text-align:right">81.34807</td>
+<td style="text-align:right">87.57366</td>
+<td style="text-align:right">99.04721</td>
+<td style="text-align:right">80.11158</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:left">H</td>
+<td style="text-align:right">89.47185</td>
+<td style="text-align:right">89.62792</td>
+<td style="text-align:right">91.37094</td>
+<td style="text-align:right">96.30433</td>
+<td style="text-align:right">89.58399</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:left">I</td>
+<td style="text-align:right">92.78107</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">96.44479</td>
+<td style="text-align:right">87.20809</td>
+<td style="text-align:right">81.31118</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">J</td>
+<td style="text-align:right">83.04019</td>
+<td style="text-align:right">88.74052</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">96.58848</td>
+<td style="text-align:right">85.93511</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">K</td>
+<td style="text-align:right">91.57146</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">87.94661</td>
+<td style="text-align:right">93.73501</td>
+<td style="text-align:right">88.43763</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">L</td>
+<td style="text-align:right">94.18791</td>
+<td style="text-align:right">89.64253</td>
+<td style="text-align:right">90.53395</td>
+<td style="text-align:right">88.29499</td>
+<td style="text-align:right">86.82630</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:left">M</td>
+<td style="text-align:right">95.96341</td>
+<td style="text-align:right">94.94366</td>
+<td style="text-align:right">91.53490</td>
+<td style="text-align:right">85.17583</td>
+<td style="text-align:right">82.57437</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:left">N</td>
+<td style="text-align:right">84.91042</td>
+<td style="text-align:right">90.50202</td>
+<td style="text-align:right">93.41616</td>
+<td style="text-align:right">87.64364</td>
+<td style="text-align:right">83.46703</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:left">O</td>
+<td style="text-align:right">92.76743</td>
+<td style="text-align:right">81.32158</td>
+<td style="text-align:right">84.05944</td>
+<td style="text-align:right">103.32883</td>
+<td style="text-align:right">87.00560</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:left">P</td>
+<td style="text-align:right">92.48953</td>
+<td style="text-align:right">93.73259</td>
+<td style="text-align:right">91.46155</td>
+<td style="text-align:right">93.64285</td>
+<td style="text-align:right">87.11260</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:left">Q</td>
+<td style="text-align:right">91.88890</td>
+<td style="text-align:right">91.99284</td>
+<td style="text-align:right">95.01500</td>
+<td style="text-align:right">95.61172</td>
+<td style="text-align:right">84.63614</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:left">R</td>
+<td style="text-align:right">87.25405</td>
+<td style="text-align:right">89.89440</td>
+<td style="text-align:right">91.07664</td>
+<td style="text-align:right">91.93496</td>
+<td style="text-align:right">89.64706</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:left">S</td>
+<td style="text-align:right">83.62513</td>
+<td style="text-align:right">82.48662</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">92.74020</td>
+<td style="text-align:right">90.45662</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:left">T</td>
+<td style="text-align:right">87.91310</td>
+<td style="text-align:right">92.87887</td>
+<td style="text-align:right">95.78937</td>
+<td style="text-align:right">84.74539</td>
+<td style="text-align:right">86.05332</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:left">U</td>
+<td style="text-align:right">91.36955</td>
+<td style="text-align:right">96.67913</td>
+<td style="text-align:right">90.59384</td>
+<td style="text-align:right">87.86449</td>
+<td style="text-align:right">79.76733</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:left">V</td>
+<td style="text-align:right">91.30800</td>
+<td style="text-align:right">87.35611</td>
+<td style="text-align:right">88.29575</td>
+<td style="text-align:right">90.40188</td>
+<td style="text-align:right">89.97015</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:left">W</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">89.35205</td>
+<td style="text-align:right">97.02888</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">82.47724</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:left">X</td>
+<td style="text-align:right">94.06035</td>
+<td style="text-align:right">83.28452</td>
+<td style="text-align:right">97.71377</td>
+<td style="text-align:right">82.26974</td>
+<td style="text-align:right">90.26051</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">91.24920</td>
+<td style="text-align:right">96.15636</td>
+<td style="text-align:right">88.80131</td>
+<td style="text-align:right">90.26133</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:left">Z</td>
+<td style="text-align:right">94.57923</td>
+<td style="text-align:right">93.57157</td>
+<td style="text-align:right">91.66163</td>
+<td style="text-align:right">91.83234</td>
+<td style="text-align:right">84.33456</td>
+<td style="text-align:right">100</td>
+</tr>
+</tbody>
+</table>
+<p>So for the purpose of the report I treat NA&rsquo;s as zeros. If you are dealing with multiple columns this is a pretty easy step just use <code>mutate(across)</code> and using some combination of <code>starts_with</code>, <code>contains</code>, <code>everything</code>, or <code>ends_with</code> to achieve the desired goal.</p>
+<pre><code class="language-r">imputed =  dat_miss %&gt;%
+  mutate(across(c(starts_with(&quot;exam&quot;), starts_with(&quot;chapter&quot;), 
+                  ), ~replace(., is.na(.), 0)))
+</code></pre>
+<p>So that should take care of the <code>NA's</code> but we still need to generate our indicators. The assignments that carry the most weight are exams and the chapters, so I focus the most on those. In my use case, taking the sum makes sense, but for yours the average is probably the better option. Thankfully, while the learning management software names are a bit cumbersome, they do share something in common. So we can use <code>mutate(across)</code> and <code>rowwise</code> to make our life easier. <code>rowwise</code> is a pretty neat little function that works perfectly for this task where you are trying to do things for each <a href="https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-rowwise/" target="_blank" rel="noopener">student</a>. Then you can use <code>case_when</code> or <code>ifelse</code> to generate a logical to create your flag. This is a toy example, but we can quickly start to build it out for our specific use cases. Using a mixture of <code>apply</code> and <code>select</code> you can achieve the same thing.</p>
+<pre><code class="language-r"> flag = imputed %&gt;% 
+  rowwise() %&gt;% 
+  mutate(flag_dplyr = round(sum(across(starts_with(&quot;chapter&quot;)))))
+
+
+flag$flag_apply = imputed %&gt;% 
+  select(contains(&quot;chapter&quot;)) %&gt;% 
+  apply(., 1, function(row){
+    round(sum(row))
+  })
+</code></pre>
+<p>Cool, we can use this for our basic stuff, but I tend to weigh exams by how well students did. So your highest exam score counts for more, and your lowest exam has the least amount of weight. As with lots of things in <code>R</code> you can do this a few ways. There is probably a more concise way of doing this with <code>apply</code>  it is ugly but works.</p>
+<pre><code class="language-r">exams_complete = imputed %&gt;% 
+  mutate(`Exam 2 Points Grade &lt;Numeric MaxPoints:55 Weight 10 Category: Exams` = rnorm(students, mean = 70, sd = 11),
+         `Exam 3 Points Grade &lt;Numeric MaxPoints:55 Weight 10 Category: Exams` = rnorm(students, mean = 75, sd = 11))
+
+
+
+exams_complete$higest_exam_apply = exams_complete %&gt;%  
+  select(contains(&quot;Exam&quot;)) %&gt;% 
+  apply(., 1, function(row){
+    round(max(row))
+  })
+
+
+exams_complete = exams_complete %&gt;% 
+  rowwise() %&gt;% 
+  mutate(hig_exam_dplyr = round(max(c_across(contains(&quot;Exam&quot;)))))
+
+exams_complete$lowest_exam_apply = exams_complete %&gt;%  
+  select(contains(&quot;Exam&quot;)) %&gt;% 
+  apply(., 1, function(row){
+    round(min(row))
+  })
+
+exams_complete = exams_complete %&gt;% 
+  rowwise() %&gt;% 
+  mutate(low_exam_dplyr = round(min(c_across(contains(&quot;Exam&quot;)))))
+</code></pre>
+<p>So this is easy enough because we are just changing what we are doing with our summary function, but what about the second highest exam score? In this case you are going to have to use some trickery to get what you want</p>
+<pre><code class="language-r">exams_complete$second_highest = exams_complete %&gt;% 
+  select(starts_with(&quot;Exam&quot;)) %&gt;% 
+  apply(., 1, function(row){
+    round(sort(row, decreasing = TRUE)[2])
+  })
+</code></pre>
+<p>This is simple enough and you can just use <code>select</code> and <code>filter</code> to get the info you want. However, as we all know we have to do some grading. You can use all your favorite <code>dplyr</code> tricks to grade and impute grades. This is the easy part, and now you can start to expand this out to using <code>R</code> to automate calculating grades. One super neat assignment all Intro to Government students at Georgia State do is assigning an adult field trip of sorts that is free for them. The students go to the <a href="https://www.civilandhumanrights.org/" target="_blank" rel="noopener">National Center for Civil and Human Rights</a> and do a tour and simulation of the lunch counter sit-ins. There are a few components to this: they submit a unique code as part of the proof that they have done it. Naturally, as is the case, some students just did not do it, but that nbd just use our friend left join, but to retain all the students be sure to include <code>keep = TRUE</code> so each student gets graded.</p>
+<pre><code class="language-r">codes_data = tibble(id = 1:10,
+             Students = LETTERS[1:10],
+             code = 100)
+
+
+exams_complete = mutate(exams_complete, Code = NA)
+
+
+grades_with_codes = left_join(exams_complete, codes_data, by = &quot;Students&quot;, keep = TRUE) %&gt;% 
+  mutate(Code = code,
+         Code = ifelse(is.na(Code), 0, Code)) %&gt;% 
+  rename(id = id.x,
+         students = Students.x) %&gt;% 
+  select(-id.y, -Students.y, -code)
+</code></pre>
+<p>In the real data, I join by using last names, which works for the most part. But you may need to check to make sure that your LMS has correctly spelled your students’ last name or, just as importantly, they spelled their last name correctly. Hopefully, this helps somebody. If not, at least it is tucked in a nice blog post. Be sure to check everything to make sure it is working, but if it works correctly then hopefully , you get a nice graded dataset</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">id</th>
+<th style="text-align:left">students</th>
+<th style="text-align:right">Chapter 4.2 Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Chapter 4.3 Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Chapter 4.4  Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Chapter 4.5  Points Grade <Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23></th>
+<th style="text-align:right">Exam 1 Points Grade &lt;Numeric MaxPoints:55 Weight 10 Category: Exams</th>
+<th style="text-align:right">surveys</th>
+<th style="text-align:right">Exam 2 Points Grade &lt;Numeric MaxPoints:55 Weight 10 Category: Exams</th>
+<th style="text-align:right">Exam 3 Points Grade &lt;Numeric MaxPoints:55 Weight 10 Category: Exams</th>
+<th style="text-align:right">higest_exam_apply</th>
+<th style="text-align:right">hig_exam_dplyr</th>
+<th style="text-align:right">lowest_exam_apply</th>
+<th style="text-align:right">low_exam_dplyr</th>
+<th style="text-align:right">second_highest</th>
+<th style="text-align:right">Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">A</td>
+<td style="text-align:right">83.56343</td>
+<td style="text-align:right">81.70468</td>
+<td style="text-align:right">85.71587</td>
+<td style="text-align:right">85.97115</td>
+<td style="text-align:right">83.71489</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">58.06166</td>
+<td style="text-align:right">68.83867</td>
+<td style="text-align:right">84</td>
+<td style="text-align:right">84</td>
+<td style="text-align:right">58</td>
+<td style="text-align:right">58</td>
+<td style="text-align:right">69</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">B</td>
+<td style="text-align:right">91.44406</td>
+<td style="text-align:right">86.12473</td>
+<td style="text-align:right">91.53892</td>
+<td style="text-align:right">91.80590</td>
+<td style="text-align:right">84.62108</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">69.96645</td>
+<td style="text-align:right">73.51084</td>
+<td style="text-align:right">85</td>
+<td style="text-align:right">85</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">74</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">C</td>
+<td style="text-align:right">98.50185</td>
+<td style="text-align:right">89.76872</td>
+<td style="text-align:right">91.79794</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">85.11662</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">66.30306</td>
+<td style="text-align:right">74.42536</td>
+<td style="text-align:right">85</td>
+<td style="text-align:right">85</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">74</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">D</td>
+<td style="text-align:right">96.99304</td>
+<td style="text-align:right">88.53903</td>
+<td style="text-align:right">83.42538</td>
+<td style="text-align:right">92.42625</td>
+<td style="text-align:right">86.08429</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">65.79288</td>
+<td style="text-align:right">85.94456</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">E</td>
+<td style="text-align:right">90.49552</td>
+<td style="text-align:right">92.64055</td>
+<td style="text-align:right">93.27846</td>
+<td style="text-align:right">89.24096</td>
+<td style="text-align:right">80.39882</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">88.72094</td>
+<td style="text-align:right">64.87935</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">65</td>
+<td style="text-align:right">65</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">F</td>
+<td style="text-align:right">83.30126</td>
+<td style="text-align:right">86.91250</td>
+<td style="text-align:right">90.75522</td>
+<td style="text-align:right">83.04509</td>
+<td style="text-align:right">78.98100</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">80.41976</td>
+<td style="text-align:right">73.06732</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">73</td>
+<td style="text-align:right">73</td>
+<td style="text-align:right">79</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:left">G</td>
+<td style="text-align:right">94.03755</td>
+<td style="text-align:right">81.34807</td>
+<td style="text-align:right">87.57366</td>
+<td style="text-align:right">99.04721</td>
+<td style="text-align:right">80.11158</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">86.56743</td>
+<td style="text-align:right">66.79291</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">67</td>
+<td style="text-align:right">67</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:left">H</td>
+<td style="text-align:right">89.47185</td>
+<td style="text-align:right">89.62792</td>
+<td style="text-align:right">91.37094</td>
+<td style="text-align:right">96.30433</td>
+<td style="text-align:right">89.58399</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">87.48637</td>
+<td style="text-align:right">74.13581</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">74</td>
+<td style="text-align:right">74</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:left">I</td>
+<td style="text-align:right">92.78107</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">96.44479</td>
+<td style="text-align:right">87.20809</td>
+<td style="text-align:right">81.31118</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">69.63665</td>
+<td style="text-align:right">68.36826</td>
+<td style="text-align:right">81</td>
+<td style="text-align:right">81</td>
+<td style="text-align:right">68</td>
+<td style="text-align:right">68</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">J</td>
+<td style="text-align:right">83.04019</td>
+<td style="text-align:right">88.74052</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">96.58848</td>
+<td style="text-align:right">85.93511</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">69.71254</td>
+<td style="text-align:right">71.65925</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">72</td>
+<td style="text-align:right">100</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">K</td>
+<td style="text-align:right">91.57146</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">87.94661</td>
+<td style="text-align:right">93.73501</td>
+<td style="text-align:right">88.43763</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">71.99278</td>
+<td style="text-align:right">78.33438</td>
+<td style="text-align:right">88</td>
+<td style="text-align:right">88</td>
+<td style="text-align:right">72</td>
+<td style="text-align:right">72</td>
+<td style="text-align:right">78</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">L</td>
+<td style="text-align:right">94.18791</td>
+<td style="text-align:right">89.64253</td>
+<td style="text-align:right">90.53395</td>
+<td style="text-align:right">88.29499</td>
+<td style="text-align:right">86.82630</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">66.30946</td>
+<td style="text-align:right">99.16532</td>
+<td style="text-align:right">99</td>
+<td style="text-align:right">99</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:left">M</td>
+<td style="text-align:right">95.96341</td>
+<td style="text-align:right">94.94366</td>
+<td style="text-align:right">91.53490</td>
+<td style="text-align:right">85.17583</td>
+<td style="text-align:right">82.57437</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">71.14509</td>
+<td style="text-align:right">62.94670</td>
+<td style="text-align:right">83</td>
+<td style="text-align:right">83</td>
+<td style="text-align:right">63</td>
+<td style="text-align:right">63</td>
+<td style="text-align:right">71</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:left">N</td>
+<td style="text-align:right">84.91042</td>
+<td style="text-align:right">90.50202</td>
+<td style="text-align:right">93.41616</td>
+<td style="text-align:right">87.64364</td>
+<td style="text-align:right">83.46703</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">66.72115</td>
+<td style="text-align:right">67.17081</td>
+<td style="text-align:right">83</td>
+<td style="text-align:right">83</td>
+<td style="text-align:right">67</td>
+<td style="text-align:right">67</td>
+<td style="text-align:right">67</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:left">O</td>
+<td style="text-align:right">92.76743</td>
+<td style="text-align:right">81.32158</td>
+<td style="text-align:right">84.05944</td>
+<td style="text-align:right">103.32883</td>
+<td style="text-align:right">87.00560</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">88.98898</td>
+<td style="text-align:right">66.12589</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:left">P</td>
+<td style="text-align:right">92.48953</td>
+<td style="text-align:right">93.73259</td>
+<td style="text-align:right">91.46155</td>
+<td style="text-align:right">93.64285</td>
+<td style="text-align:right">87.11260</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">63.42139</td>
+<td style="text-align:right">77.70564</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">87</td>
+<td style="text-align:right">63</td>
+<td style="text-align:right">63</td>
+<td style="text-align:right">78</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:left">Q</td>
+<td style="text-align:right">91.88890</td>
+<td style="text-align:right">91.99284</td>
+<td style="text-align:right">95.01500</td>
+<td style="text-align:right">95.61172</td>
+<td style="text-align:right">84.63614</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">70.82987</td>
+<td style="text-align:right">53.49421</td>
+<td style="text-align:right">85</td>
+<td style="text-align:right">85</td>
+<td style="text-align:right">53</td>
+<td style="text-align:right">53</td>
+<td style="text-align:right">71</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:left">R</td>
+<td style="text-align:right">87.25405</td>
+<td style="text-align:right">89.89440</td>
+<td style="text-align:right">91.07664</td>
+<td style="text-align:right">91.93496</td>
+<td style="text-align:right">89.64706</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">69.95649</td>
+<td style="text-align:right">86.20525</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:left">S</td>
+<td style="text-align:right">83.62513</td>
+<td style="text-align:right">82.48662</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">92.74020</td>
+<td style="text-align:right">90.45662</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">78.62938</td>
+<td style="text-align:right">64.34364</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">64</td>
+<td style="text-align:right">64</td>
+<td style="text-align:right">79</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:left">T</td>
+<td style="text-align:right">87.91310</td>
+<td style="text-align:right">92.87887</td>
+<td style="text-align:right">95.78937</td>
+<td style="text-align:right">84.74539</td>
+<td style="text-align:right">86.05332</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">84.55215</td>
+<td style="text-align:right">80.42847</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">85</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:left">U</td>
+<td style="text-align:right">91.36955</td>
+<td style="text-align:right">96.67913</td>
+<td style="text-align:right">90.59384</td>
+<td style="text-align:right">87.86449</td>
+<td style="text-align:right">79.76733</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">75.08180</td>
+<td style="text-align:right">64.40788</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">64</td>
+<td style="text-align:right">64</td>
+<td style="text-align:right">75</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:left">V</td>
+<td style="text-align:right">91.30800</td>
+<td style="text-align:right">87.35611</td>
+<td style="text-align:right">88.29575</td>
+<td style="text-align:right">90.40188</td>
+<td style="text-align:right">89.97015</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">68.53960</td>
+<td style="text-align:right">79.79600</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">69</td>
+<td style="text-align:right">69</td>
+<td style="text-align:right">80</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:left">W</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">89.35205</td>
+<td style="text-align:right">97.02888</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">82.47724</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">88.95738</td>
+<td style="text-align:right">70.28810</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">82</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:left">X</td>
+<td style="text-align:right">94.06035</td>
+<td style="text-align:right">83.28452</td>
+<td style="text-align:right">97.71377</td>
+<td style="text-align:right">82.26974</td>
+<td style="text-align:right">90.26051</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">63.12942</td>
+<td style="text-align:right">78.58372</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">63</td>
+<td style="text-align:right">63</td>
+<td style="text-align:right">79</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:right">0.00000</td>
+<td style="text-align:right">91.24920</td>
+<td style="text-align:right">96.15636</td>
+<td style="text-align:right">88.80131</td>
+<td style="text-align:right">90.26133</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">88.82365</td>
+<td style="text-align:right">86.03999</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">90</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">86</td>
+<td style="text-align:right">89</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:left">Z</td>
+<td style="text-align:right">94.57923</td>
+<td style="text-align:right">93.57157</td>
+<td style="text-align:right">91.66163</td>
+<td style="text-align:right">91.83234</td>
+<td style="text-align:right">84.33456</td>
+<td style="text-align:right">100</td>
+<td style="text-align:right">65.54887</td>
+<td style="text-align:right">82.58063</td>
+<td style="text-align:right">84</td>
+<td style="text-align:right">84</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">66</td>
+<td style="text-align:right">83</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/&amp;text=Using%20R%20to%20Streamline%20Midsemester%20Reports%20and%20Grading" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/&amp;t=Using%20R%20to%20Streamline%20Midsemester%20Reports%20and%20Grading" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Using%20R%20to%20Streamline%20Midsemester%20Reports%20and%20Grading&amp;body=https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/&amp;title=Using%20R%20to%20Streamline%20Midsemester%20Reports%20and%20Grading" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Using%20R%20to%20Streamline%20Midsemester%20Reports%20and%20Grading%20https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/&amp;title=Using%20R%20to%20Streamline%20Midsemester%20Reports%20and%20Grading" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://gsu-data-services-R-workshops.netlify.app"><img class="avatar mr-3 avatar-circle" src="/author/avatar_hu5e94539e7b5d84c2a944f31d811cf851_1961404_270x270_fill_q75_lanczos_center.jpg" alt=""></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://gsu-data-services-R-workshops.netlify.app"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/jallen108@gsu.edu" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/joshuallen17" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?hl=en&amp;user=IdE9GloAAAAJ&amp;view_op=list_works&amp;sortby=title" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/joshuafayallen" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdn.jsdelivr.net/gh/desandro/imagesloaded@v4.1.4/imagesloaded.pkgd.min.js" integrity="sha512-S5PZ9GxJZO16tT9r3WJp/Safn31eu8uWrzglMahDT4dsmgqWonRY9grk3j+3tfuPr9WJNsfooOR7Gi7HL5W2jw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/metafizzy/isotope@v3.0.6/dist/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/highlight.min.js" integrity="sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.2.1/build/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.7cd6ec29d281a73c92a2958a1584aadc.js"></script>
+
+    
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+
+
+</body>
+</html>

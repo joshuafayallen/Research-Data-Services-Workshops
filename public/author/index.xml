@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Research Data Services R Workshops</title>
+    <link>https://gsu-data-services-R-workshops.netlify.app/author/</link>
+      <atom:link href="https://gsu-data-services-R-workshops.netlify.app/author/index.xml" rel="self" type="application/rss+xml" />
+    <description>Research Data Services R Workshops</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
+    <image>
+      <url>https://gsu-data-services-R-workshops.netlify.app/author/avatar_hu5e94539e7b5d84c2a944f31d811cf851_1961404_270x270_fill_q75_lanczos_center.jpg</url>
+      <title>Research Data Services R Workshops</title>
+      <link>https://gsu-data-services-R-workshops.netlify.app/author/</link>
+    </image>
+    
+  </channel>
+</rss>

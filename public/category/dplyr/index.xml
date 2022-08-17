@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dplyr | Research Data Services R Workshops</title>
+    <link>https://gsu-data-services-R-workshops.netlify.app/category/dplyr/</link>
+      <atom:link href="https://gsu-data-services-R-workshops.netlify.app/category/dplyr/index.xml" rel="self" type="application/rss+xml" />
+    <description>dplyr</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 11 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://gsu-data-services-R-workshops.netlify.app/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_512x512_fill_lanczos_center_3.png</url>
+      <title>dplyr</title>
+      <link>https://gsu-data-services-R-workshops.netlify.app/category/dplyr/</link>
+    </image>
+    
+    <item>
+      <title>Using R to Streamline Midsemester Reports and Grading</title>
+      <link>https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/</link>
+      <pubDate>Fri, 11 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://gsu-data-services-R-workshops.netlify.app/post/using-r-to-streamline-midsemester-reports/</guid>
+      <description>&lt;p&gt;At GSU, we have &lt;a href=&#34;https://success.students.gsu.edu/early-alert/#1491401397066-70b280d0-31cd2fde-8845&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Early Alert&lt;/a&gt; that is meant to connect students with resources if they are not doing well in the first few weeks of classes. While setting up your rules of thumb is up to you, this can quickly soak up an entire day if you are going row by row in your class of 60 or more students. To streamline the process I turned to &lt;code&gt;R&lt;/code&gt; because it is a fairly simple data cleaning task.&lt;/p&gt;
+&lt;p&gt;Our learning management software likes to add lots of extra stuff to the column names in our data. While most of us would come up with a more concise name like &lt;code&gt;Chapter_4&lt;/code&gt; our software names is &lt;code&gt;Chapter 4.2 Points Grade &amp;lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&amp;gt;&lt;/code&gt;  we could use &lt;code&gt;janitor::clean_names&lt;/code&gt; to eliminate some of the extraneous stuff iCollege will get grumpy at us. We could do this in Excel, and I have done it in the past, I figured I could speed this up in &lt;code&gt;R&lt;/code&gt; while avoiding the headaches of ensuring each and every column is where it should be.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+
+set.seed(1994)
+
+students = 26
+
+
+dat = tibble(id = 1:26,
+             Students = LETTERS,
+             `Chapter 4.2 Points Grade &amp;lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&amp;gt;` = rnorm(students, mean = 90, sd = 5),
+            `Chapter 4.3 Points Grade &amp;lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&amp;gt;` = rnorm(students, mean = 90, sd = 5),
+            `Chapter 4.4  Points Grade &amp;lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&amp;gt;` = rnorm(students, mean = 90, sd = 5),
+            `Chapter 4.5  Points Grade &amp;lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&amp;gt;` = rnorm(students, mean = 90, sd = 5),
+            `Exam 1 Points Grade &amp;lt;Numeric MaxPoints:55 Weight 10 Category: Exams` = rnorm(students, mean = 85, sd = 3))  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this simple example there are only 5 columns they have annoying names sure but it is not that bad. We can probably copy and paste them and we will be fine. However, in my real data there are 13 or so chapters with a few subsections in each of them. So this can get out from under us kind of quick and copy and pasting does not make our lives any easier. We also usually get columns that do not help us. Our &lt;code&gt;ID&lt;/code&gt; variable is not doing anything other than providing the same info in a less transparent way than the &lt;code&gt;student&lt;/code&gt; name variable, and more minor items like surveys which do not have a lot of weight on their final grade.&lt;/p&gt;
+&lt;p&gt;I just used &lt;code&gt;rnorm&lt;/code&gt; for convenience; however your data is more likely to have some missing values because students did not do stuff so it looks like this.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;id&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Students&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.2 Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.3 Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.4  Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.5  Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Exam 1 Points Grade &amp;lt;Numeric MaxPoints:55 Weight 10 Category: Exams&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;surveys&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;A&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.56343&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.70468&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.71587&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.97115&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.71489&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;B&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.44406&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.12473&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.53892&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.80590&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.62108&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;C&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;98.50185&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.76872&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.79794&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.11662&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;D&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.99304&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.53903&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.42538&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.42625&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.08429&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;E&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.49552&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.64055&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.27846&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.24096&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80.39882&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;6&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;F&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.30126&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.91250&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.75522&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.04509&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;78.98100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;G&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.03755&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.34807&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.57366&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;99.04721&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80.11158&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;H&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.47185&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.62792&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.37094&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.30433&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.58399&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;9&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;I&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.78107&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.44479&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.20809&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.31118&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;10&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;J&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.04019&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.74052&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.58848&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.93511&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;11&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;K&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.57146&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.94661&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.73501&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.43763&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;12&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;L&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.18791&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.64253&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.53395&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.29499&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.82630&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;13&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;M&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.96341&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.94366&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.53490&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.17583&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.57437&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;14&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;N&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.91042&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.50202&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.41616&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.64364&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.46703&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;15&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;O&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.76743&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.32158&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.05944&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;103.32883&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.00560&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;16&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;P&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.48953&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.73259&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.46155&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.64285&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.11260&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;17&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Q&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.88890&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.99284&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.01500&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.61172&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.63614&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;18&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;R&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.25405&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.89440&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.07664&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.93496&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.64706&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;19&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;S&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.62513&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.48662&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.74020&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.45662&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;20&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;T&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.91310&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.87887&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.78937&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.74539&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.05332&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;21&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;U&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.36955&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.67913&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.59384&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.86449&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79.76733&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;22&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;V&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.30800&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.35611&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.29575&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.40188&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.97015&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;23&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;W&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.35205&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;97.02888&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.47724&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;24&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;X&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.06035&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.28452&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;97.71377&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.26974&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.26051&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;25&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Y&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.24920&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.15636&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.80131&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.26133&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;26&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Z&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.57923&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.57157&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.66163&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.83234&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.33456&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;So for the purpose of the report I treat NA&amp;rsquo;s as zeros. If you are dealing with multiple columns this is a pretty easy step just use &lt;code&gt;mutate(across)&lt;/code&gt; and using some combination of &lt;code&gt;starts_with&lt;/code&gt;, &lt;code&gt;contains&lt;/code&gt;, &lt;code&gt;everything&lt;/code&gt;, or &lt;code&gt;ends_with&lt;/code&gt; to achieve the desired goal.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;imputed =  dat_miss %&amp;gt;%
+  mutate(across(c(starts_with(&amp;quot;exam&amp;quot;), starts_with(&amp;quot;chapter&amp;quot;), 
+                  ), ~replace(., is.na(.), 0)))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So that should take care of the &lt;code&gt;NA&#39;s&lt;/code&gt; but we still need to generate our indicators. The assignments that carry the most weight are exams and the chapters, so I focus the most on those. In my use case, taking the sum makes sense, but for yours the average is probably the better option. Thankfully, while the learning management software names are a bit cumbersome, they do share something in common. So we can use &lt;code&gt;mutate(across)&lt;/code&gt; and &lt;code&gt;rowwise&lt;/code&gt; to make our life easier. &lt;code&gt;rowwise&lt;/code&gt; is a pretty neat little function that works perfectly for this task where you are trying to do things for each &lt;a href=&#34;https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-rowwise/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;student&lt;/a&gt;. Then you can use &lt;code&gt;case_when&lt;/code&gt; or &lt;code&gt;ifelse&lt;/code&gt; to generate a logical to create your flag. This is a toy example, but we can quickly start to build it out for our specific use cases. Using a mixture of &lt;code&gt;apply&lt;/code&gt; and &lt;code&gt;select&lt;/code&gt; you can achieve the same thing.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt; flag = imputed %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(flag_dplyr = round(sum(across(starts_with(&amp;quot;chapter&amp;quot;)))))
+
+
+flag$flag_apply = imputed %&amp;gt;% 
+  select(contains(&amp;quot;chapter&amp;quot;)) %&amp;gt;% 
+  apply(., 1, function(row){
+    round(sum(row))
+  })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Cool, we can use this for our basic stuff, but I tend to weigh exams by how well students did. So your highest exam score counts for more, and your lowest exam has the least amount of weight. As with lots of things in &lt;code&gt;R&lt;/code&gt; you can do this a few ways. There is probably a more concise way of doing this with &lt;code&gt;apply&lt;/code&gt;  it is ugly but works.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;exams_complete = imputed %&amp;gt;% 
+  mutate(`Exam 2 Points Grade &amp;lt;Numeric MaxPoints:55 Weight 10 Category: Exams` = rnorm(students, mean = 70, sd = 11),
+         `Exam 3 Points Grade &amp;lt;Numeric MaxPoints:55 Weight 10 Category: Exams` = rnorm(students, mean = 75, sd = 11))
+
+
+
+exams_complete$higest_exam_apply = exams_complete %&amp;gt;%  
+  select(contains(&amp;quot;Exam&amp;quot;)) %&amp;gt;% 
+  apply(., 1, function(row){
+    round(max(row))
+  })
+
+
+exams_complete = exams_complete %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(hig_exam_dplyr = round(max(c_across(contains(&amp;quot;Exam&amp;quot;)))))
+
+exams_complete$lowest_exam_apply = exams_complete %&amp;gt;%  
+  select(contains(&amp;quot;Exam&amp;quot;)) %&amp;gt;% 
+  apply(., 1, function(row){
+    round(min(row))
+  })
+
+exams_complete = exams_complete %&amp;gt;% 
+  rowwise() %&amp;gt;% 
+  mutate(low_exam_dplyr = round(min(c_across(contains(&amp;quot;Exam&amp;quot;)))))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So this is easy enough because we are just changing what we are doing with our summary function, but what about the second highest exam score? In this case you are going to have to use some trickery to get what you want&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;exams_complete$second_highest = exams_complete %&amp;gt;% 
+  select(starts_with(&amp;quot;Exam&amp;quot;)) %&amp;gt;% 
+  apply(., 1, function(row){
+    round(sort(row, decreasing = TRUE)[2])
+  })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is simple enough and you can just use &lt;code&gt;select&lt;/code&gt; and &lt;code&gt;filter&lt;/code&gt; to get the info you want. However, as we all know we have to do some grading. You can use all your favorite &lt;code&gt;dplyr&lt;/code&gt; tricks to grade and impute grades. This is the easy part, and now you can start to expand this out to using &lt;code&gt;R&lt;/code&gt; to automate calculating grades. One super neat assignment all Intro to Government students at Georgia State do is assigning an adult field trip of sorts that is free for them. The students go to the &lt;a href=&#34;https://www.civilandhumanrights.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;National Center for Civil and Human Rights&lt;/a&gt; and do a tour and simulation of the lunch counter sit-ins. There are a few components to this: they submit a unique code as part of the proof that they have done it. Naturally, as is the case, some students just did not do it, but that nbd just use our friend left join, but to retain all the students be sure to include &lt;code&gt;keep = TRUE&lt;/code&gt; so each student gets graded.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;codes_data = tibble(id = 1:10,
+             Students = LETTERS[1:10],
+             code = 100)
+
+
+exams_complete = mutate(exams_complete, Code = NA)
+
+
+grades_with_codes = left_join(exams_complete, codes_data, by = &amp;quot;Students&amp;quot;, keep = TRUE) %&amp;gt;% 
+  mutate(Code = code,
+         Code = ifelse(is.na(Code), 0, Code)) %&amp;gt;% 
+  rename(id = id.x,
+         students = Students.x) %&amp;gt;% 
+  select(-id.y, -Students.y, -code)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the real data, I join by using last names, which works for the most part. But you may need to check to make sure that your LMS has correctly spelled your students’ last name or, just as importantly, they spelled their last name correctly. Hopefully, this helps somebody. If not, at least it is tucked in a nice blog post. Be sure to check everything to make sure it is working, but if it works correctly then hopefully , you get a nice graded dataset&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;id&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;students&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.2 Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.3 Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.4  Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Chapter 4.5  Points Grade &lt;Numeric MaxPoints:100 Weight:3.125 Category:Area9 Chapters CategoryWeight:23&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Exam 1 Points Grade &amp;lt;Numeric MaxPoints:55 Weight 10 Category: Exams&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;surveys&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Exam 2 Points Grade &amp;lt;Numeric MaxPoints:55 Weight 10 Category: Exams&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Exam 3 Points Grade &amp;lt;Numeric MaxPoints:55 Weight 10 Category: Exams&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;higest_exam_apply&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;hig_exam_dplyr&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;lowest_exam_apply&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;low_exam_dplyr&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;second_highest&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Code&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;A&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.56343&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.70468&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.71587&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.97115&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.71489&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;58.06166&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;68.83867&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;58&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;58&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;69&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;B&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.44406&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.12473&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.53892&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.80590&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.62108&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;69.96645&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;73.51084&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;74&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;C&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;98.50185&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.76872&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.79794&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.11662&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66.30306&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;74.42536&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;74&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;D&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.99304&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.53903&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.42538&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.42625&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.08429&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;65.79288&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.94456&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;E&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.49552&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.64055&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.27846&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.24096&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80.39882&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.72094&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;64.87935&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;65&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;65&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;6&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;F&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.30126&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.91250&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.75522&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.04509&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;78.98100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80.41976&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;73.06732&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;73&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;73&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;G&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.03755&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.34807&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.57366&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;99.04721&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80.11158&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.56743&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66.79291&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;67&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;67&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;8&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;H&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.47185&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.62792&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.37094&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.30433&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.58399&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.48637&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;74.13581&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;74&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;74&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;9&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;I&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.78107&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.44479&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.20809&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.31118&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;69.63665&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;68.36826&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;68&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;68&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;10&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;J&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.04019&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.74052&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.58848&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.93511&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;69.71254&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;71.65925&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;72&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;11&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;K&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.57146&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.94661&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.73501&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.43763&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;71.99278&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;78.33438&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;72&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;72&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;78&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;12&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;L&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.18791&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.64253&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.53395&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.29499&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.82630&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66.30946&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;99.16532&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;99&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;99&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;13&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;M&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.96341&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.94366&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.53490&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85.17583&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.57437&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;71.14509&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;62.94670&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;71&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;14&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;N&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.91042&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.50202&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.41616&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.64364&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.46703&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66.72115&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;67.17081&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;67&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;67&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;67&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;15&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;O&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.76743&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;81.32158&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.05944&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;103.32883&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.00560&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.98898&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66.12589&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;16&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;P&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.48953&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.73259&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.46155&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.64285&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.11260&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63.42139&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;77.70564&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;78&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;17&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Q&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.88890&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.99284&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.01500&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.61172&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.63614&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70.82987&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;53.49421&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;53&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;53&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;71&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;18&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;R&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.25405&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.89440&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.07664&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.93496&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.64706&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;69.95649&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.20525&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;19&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;S&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.62513&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.48662&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.74020&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.45662&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;78.62938&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;64.34364&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;64&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;64&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;20&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;T&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.91310&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;92.87887&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;95.78937&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.74539&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.05332&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.55215&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80.42847&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;85&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;21&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;U&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.36955&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.67913&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.59384&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.86449&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79.76733&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;75.08180&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;64.40788&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;64&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;64&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;75&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;22&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;V&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.30800&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;87.35611&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.29575&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.40188&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.97015&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;68.53960&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79.79600&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;69&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;69&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;23&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;W&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89.35205&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;97.02888&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.47724&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.95738&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70.28810&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;70&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;24&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;X&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.06035&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83.28452&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;97.71377&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.26974&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.26051&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63.12942&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;78.58372&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;63&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;25&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Y&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0.00000&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.24920&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;96.15636&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.80131&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90.26133&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;88.82365&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86.03999&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;90&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;86&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;89&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;26&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Z&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;94.57923&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;93.57157&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.66163&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;91.83234&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84.33456&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;100&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;65.54887&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;82.58063&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;84&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;66&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;83&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
