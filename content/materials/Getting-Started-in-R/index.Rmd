@@ -12,11 +12,12 @@ links:
 - icon: images
   icon_pack: fas
   name: slides
-  url: "slides/Getting-Started-in-R/Getting-Started-in-R.html"
+  url: "slides/Getting-Started-in-R.html"
 - icon: envelope
   icon_pack: fas
   name: data
-  url: "slides/Getting-Started-in-R/data/penguins.csv"
+  url: "slides/data/penguins.csv"
+slides: "Getting-Started-in-R"
 ---
 
 # Resources Used
@@ -31,6 +32,36 @@ Grant McDermot's excellent [Data Science for Economists](https://github.com/uo-e
 
 
 
+
+```{r slides-stuff, echo=FALSE, include=FALSE}
+
+source(here::here("R", "slide-things.R"))
+
+
+slide_details = tibble::tribble(
+  ~title, ~slide, ~active,
+  "R Some Basics", "basics", TRUE,
+  "Everything is an Object", "objects", TRUE,
+  "Working with Objects in R", "workingsobj", TRUE)
+
+```
+
+
+`r blogdown::shortcode("slide-buttons")`
+
+```{r show-slide-tabs, echo=FALSE, results='asis'}
+
+slide_tabs(slide_details, "/slides/Getting-Started-in-R.html")
+
+```
+
+
+
+## Data used
+
+If you want to follow along with the workshop please download the data used in the workshop 
+
+- [<i class="fas fa-table"></i> `penguins.csv`](/slides/data/penguins.csv)
 
 
 ## Your Turn Excercise 1 
