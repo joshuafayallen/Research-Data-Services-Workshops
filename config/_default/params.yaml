@@ -50,7 +50,7 @@ school:
   url: "https://research.library.gsu.edu/dataservices"
   
   
-sharing_image: "avatar.png"  
+sharing_image: "avatar.jpg"  
 #phone: 888 888 88 88
 #address:
 #  street: 450 Serra Mall
@@ -87,103 +87,179 @@ sharing_image: "avatar.png"
 
 # Site header
 
+############################
+## Regional Settings
+############################
+
+# Date and time format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
+#   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+date_format: "January 2, 2006"
+#   Examples: "3:04 pm" or "15:04"
+time_format: "3:04 PM"
+
+
+############################
+## Advanced
+############################
+
+# Main menu alignment (l = left, c = center, r = right) and logo options.
 main_menu:
   enable: true
-  align: l
+  align: r
   show_logo: true
+  highlight_active_link: true
   show_language: false
   show_day_night: false
-  show_search: true
-  highlight_active_link: true
+  show_search: false
 
-# Localization
+# Show estimated reading time for posts? (true/false)
+reading_time: false
 
-date_format: 'Jan 2, 2006'
-time_format: '3:04 PM'
-address_format: en-us
-
-# Site features
-
-highlight: true
-highlight_languages:
-  - r
-highlight_style: "solarized-light"
-math: true
-diagram: false
-privacy_pack: false
-edit_page:
-  repo_url: 'https://github.com/joshuafayallen/Research-Data-Services-Workshops'
-  content_dir: ''
-  repo_branch: main
-  editable:
-    page: false
-    post: false
-    book: false
-show_related:
-  book: true
-  page: false
-  post: true
-  project: true
-  publication: true
-  event: true
-reading_time: true
+# Display next/previous section pager? (true/false)
 section_pager: false
-docs_section_pager: true
+docs_section_pager: false  # Display pager in Docs layout (e.g. tutorials)?
+
+# Enable in-built social sharing buttons? (true/false)
 sharing: false
+
+# Show a copyright license from creativecommons.org in the site footer?
+# Page specific copyright licenses are also possible by adding this option to a page's front matter.
 copyright_license:
   enable: false
   allow_derivatives: false
   share_alike: true
   allow_commercial: false
   notice: 'This work is licensed under {license}'
+
+# Abstract length (characters) in the Compact and Portfolio Card list views. Also, see `summaryLength` in `config.toml`.
 abstract_length: 135
+
+# Load JS plugins
+#   E.g. To load `/assets/js/custom.js`, set `plugins_js = ["custom"]`.
 plugins_js: []
+
+# Avatars.
+# An avatar is an image that appears next to a user's name.
+# An avatar can be uploaded as an image named `avatar` to each user's profile or fetched from Gravatar.com.
 avatar:
+  # Get user avatars from Gravatar.com? (true/false)
   gravatar: false
+  # Choose a shape for avatar images. Options: circle, square.
   shape: circle
+
+# Configuration of publication pages.
 publications:
+  # Date format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
+  #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
   date_format: January 2006
+
+  # Citation style ("apa" or "mla")
   citation_style: apa
+
+# Configuration of project pages.
 projects:
+  # Views for associated content.
+  #   1: List
+  #   2: Compact
+  #   3: Card
+  #   4: Citation (publications only)
   post_view: 2
   publication_view: 2
   talk_view: 2
-breadcrumb:
-  page_types:
-    book: true
+
+
+############################
+## Comments
+############################
+
 comments:
-  provider: ''
+  # Comment provider:
+  #   0: Disabled
+  #   1: Disqus (https://disqus.com)
+  #   2: Commento (https://commento.io)
+  engine: 0
+
+  # Which page types are commentable?
   commentable:
+    page: true
     post: true
-    book: true
+    docs: true
     project: true
     publication: true
-    event: true
+    talk: true
+
+  # Configuration of Disqus.
   disqus:
-    shortname: ''
-    show_count: true
+    shortname: ''  # Paste the shortname from your Disqus dashboard
+    show_count: true  # Show comment count in page header? (true/false)
+
+  # Configuration of Commento.
   commento:
+    # If self-hosting Commento, enter its URL here (e.g. "https://commento.?.com"), otherwise leave empty.
     url: ''
+
+
+############################
+## Search
+############################
 search:
-  provider: wowchemy
+  # Search provider:
+  #   0: No search engine
+  #   1: Academic (built-in)
+  #   2: Algolia (https://www.algolia.com)
+  engine: 0
+
+  # Configuration of Algolia search engine.
+  # Paste the values from your Algolia dashboard.
   algolia:
     app_id: ''
     api_key: ''
     index_name: ''
-    show_logo: true
+    show_logo: false
+
+
+############################
+## Maps
+############################
 map:
-  provider: mapnik
+  # To show your address on a map in the Contact widget, enter your latitude and longitude (above)
+  # and choose a map provider below.
+  #
+  # To use Google Maps, set `engine` to 1 and enter your API key that can be obtained here:
+  #   https://developers.google.com/maps/documentation/javascript/get-api-key
+  # To use OpenStreetMap tiles, set `engine` to 2.
+  # To use OpenStreetMap on a high traffic site, set `engine` to 3 and enter your API key that can be obtained here:
+  #   https://www.mapbox.com/studio/account/tokens
+  #
+  # Map provider:
+  #   0: No map
+  #   1: Google Maps
+  #   2: OpenStreetMap (Mapnik)
+  #   3: OpenStreetMap (Mapbox)
+  engine: 0
   api_key: ''
   zoom: 15
+
+
+############################
+## Marketing
+############################
 marketing:
   google_analytics: ''
   google_tag_manager: ''
-  google_site_verification: ''
-  baidu_site_verification: ''
-  baidu_tongji: ''
+
+
+############################
+## Content Management System
+############################
 cms:
-  branch: master
-  local_backend: false
+  # See https://sourcethemes.com/academic/docs/install/#install-with-web-browser
+  netlify_cms: true
+
+
+############################
+## Icon Pack Extensions
+############################
 icon:
   pack:
-    ai: false
+    ai: false  # Academicons icon pack https://jpswalsh.github.io/academicons/
