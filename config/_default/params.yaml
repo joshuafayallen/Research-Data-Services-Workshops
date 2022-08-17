@@ -5,9 +5,9 @@
 
 # Appearance
 
-theme: minimal
+theme: "cousteau"
 day_night: false
-font: ''
+font: 'fira'
 font_size: L
 
 # SEO
@@ -20,7 +20,34 @@ twitter: ''
 
 # Contact (edit or remove options as required)
 
-email: jallen108@gsu.edu
+author: Josh Allen
+
+instructor: 
+  name: Josh Allen
+  email: jallen108@gsu.edu
+  url: "https://joshuaallen.netlify.app/"
+  twitter: joshuallen17
+  github: joshuafayallen
+  office: "Langdale 1017"
+  contact_policy: >-
+    Feel free to email anytime if you have any questions.
+course:
+  number: "AY 2022-2023"
+  semester: "Fall and Spring"
+  days: "According to Research Data Services Website"
+  time: "As Scheduled"
+  location: "Virtual & in Person as Scheduled"
+  dates: "AY 2022-2023"
+  github: ""
+  copyrightYear: "2023"
+
+university: 
+  name: Georgia State University
+  url: "https://www.gsu.edu/"
+
+school:
+  name: Research Data Services @ Georgia State University Library
+  url: "https://research.library.gsu.edu/dataservices"
 #phone: 888 888 88 88
 #address:
 #  street: 450 Serra Mall
