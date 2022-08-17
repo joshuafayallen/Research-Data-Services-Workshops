@@ -8,8 +8,8 @@ hero_media: avatar.png
 design:
   background:
     # Background gradient
-    gradient_start: '#2c3e50'
-    gradient_end: '#3498db'
+    gradient_start: '#0071CE'
+    gradient_end: '#97CAEB'
 
     # Text color (true=light or false=dark).
     text_color_light: true
