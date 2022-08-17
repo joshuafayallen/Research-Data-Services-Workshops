@@ -7,6 +7,8 @@ menu:
     parent: Materials
     weight: 1
 type: docs
+toc: true
+slides: "Getting-Started-in-R"
 links:
 - icon: images
   icon_pack: fas

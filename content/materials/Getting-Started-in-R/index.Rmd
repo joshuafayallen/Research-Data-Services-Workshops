@@ -7,6 +7,7 @@ menu:
     parent: Materials
     weight: 1
 type: docs
+toc: true
 links:
 - icon: images
   icon_pack: fas

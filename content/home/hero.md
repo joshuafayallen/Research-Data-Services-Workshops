@@ -4,6 +4,7 @@ headless: true
 active: TRUE
 weight: 10
 title: R Workshops
+# Hero image (optional). Enter filename of an image in the `static/media/` folder.
 hero_media: avatar.png
 design:
   background:
