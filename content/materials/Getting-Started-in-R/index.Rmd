@@ -49,12 +49,6 @@ slide_details = tibble::tribble(
 
 `r blogdown::shortcode("slide-buttons")`
 
-```{r show-slide-tabs, echo=FALSE, results='asis'}
-
-slide_tabs(slide_details, "/slides/Getting-Started-in-R.html")
-
-```
-
 
 
 ## Data used

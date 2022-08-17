@@ -32,55 +32,6 @@ Grant McDermot’s excellent [Data Science for Economists](https://github.com/uo
 
 {{% slide-buttons %}}
 
-<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
-<li class="nav-item">
-<a class="nav-link active" id="r-some-basics-tab" data-toggle="tab" href="#r-some-basics" role="tab" aria-controls="r-some-basics" aria-selected="true">R Some Basics</a>
-</li>
-<li class="nav-item">
-<a class="nav-link active" id="everything-is-an-object-tab" data-toggle="tab" href="#everything-is-an-object" role="tab" aria-controls="everything-is-an-object" aria-selected="true">Everything is an Object</a>
-</li>
-<li class="nav-item">
-<a class="nav-link active" id="working-with-objects-in-r-tab" data-toggle="tab" href="#working-with-objects-in-r" role="tab" aria-controls="working-with-objects-in-r" aria-selected="true">Working with Objects in R</a>
-</li>
-</ul>
-
-<div id="slide-tabs" class="tab-content">
-
-<div id="r-some-basics" class="tab-pane fade show active" role="tabpanel" aria-labelledby="r-some-basics-tab">
-
-<div class="ratio ratio-16x9">
-
-<iframe src="/slides/Getting-Started-in-R.html#basics">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="everything-is-an-object" class="tab-pane fade show active" role="tabpanel" aria-labelledby="everything-is-an-object-tab">
-
-<div class="ratio ratio-16x9">
-
-<iframe src="/slides/Getting-Started-in-R.html#objects">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="working-with-objects-in-r" class="tab-pane fade show active" role="tabpanel" aria-labelledby="working-with-objects-in-r-tab">
-
-<div class="ratio ratio-16x9">
-
-<iframe src="/slides/Getting-Started-in-R.html#workingsobj">
-</iframe>
-
-</div>
-
-</div>
-
-</div>
-
 ## Data used
 
 If you want to follow along with the workshop please download the data used in the workshop
