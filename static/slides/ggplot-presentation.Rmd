@@ -2478,7 +2478,7 @@ ggplot() +
 ---
 # Which Produces
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r atlanta-map, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot() +
   geom_sf(data = railway$osm_lines,
           inherit.aes = FALSE,
