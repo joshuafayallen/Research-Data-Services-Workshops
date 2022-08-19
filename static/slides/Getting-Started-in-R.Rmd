@@ -257,8 +257,7 @@ R projects are great because they will just set the working directory to whereve
 ???
 Before we start R is an object oriented programming we work with objects. Objects are what we work with in R they can be various classes. The class of an object sets out strict limitations on what R can do with those objects but just as importantly it tells R what it can't do with those objects. While sometimes it is frustrating because sometimes you just want to do a thing it helps you protect your from yourself. 
 
- If R can do it than it will but it is not necessarily a good idea because it can differ from what you want it to do. 
-
+Everything that exists in R is an object because they are data which can be manipulated. And (almost) everything that happens is a function call, which is an evaluation of this object which gives you another objec
 
 ---
 
@@ -461,7 +460,7 @@ To see whether an object is contained within (i.e. matches one of) a list of ite
 
 - We may need all this math stuff to create new variables
 
-- However we need to ***Assign them*** to reuse
+- However we need to ***Assign them*** to reuse them later in functions.
   - Including datasets 
 
 .footnote[Later in the semester we can modify in place but that is running before we are walking]
