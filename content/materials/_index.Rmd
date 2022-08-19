@@ -13,6 +13,8 @@ The workshop slides are special HTML files made with the R package [**xaringan**
 
 The slides are also embedded on each page. You can click in the slides and navigate through them with <kbd>←</kbd> and <kbd>→</kbd>. If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while viewing the slides you can see a list of slide-specific commands (like <kbd>f</kbd> for fullscreen or <kbd>p</kbd> for presenter mode if you want to see my notes).
 
+Each workshop I will highlight a list of excellent R resources I use and have helped me learn R. I highly encourage you to check them out.
+
 ## Why R? 
 
 <center>
