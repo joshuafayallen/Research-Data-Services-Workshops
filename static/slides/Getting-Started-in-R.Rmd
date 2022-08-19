@@ -721,6 +721,11 @@ class:inverse
 
 - using `install.packages()` install ggplot2
 
+```{r echo=FALSE}
+countdown::countdown(minutes = 4, play_sound = TRUE)
+```
+
+
 ---
 
 
