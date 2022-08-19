@@ -1971,6 +1971,21 @@ class: center, middle, inverse
 
 ---
 
+---
+# New Packages
+
+```{r eval=FALSE}
+install.packages(c("sf", "tidygeocoder"))
+devtools::install_github("ropenscilabs/rnaturalearth")
+library(rnaturalearth)
+library(sf)
+
+```
+
+
+
+---
+
 
 ---
 # Mapping in R 
@@ -2142,7 +2157,7 @@ ggplot() +
 
 .pull-right[
 
-```{r basic-map-out, echo=FALSE}
+```{r basic-map-out, echo=FALSE, cache=TRUE}
 library(rnaturalearth)
 
 world_map_ne = ne_states(returnclass = "sf")
@@ -2173,7 +2188,7 @@ ggplot() +
 
 .pull-right[
 
-```{r gall-peters-projection-out, echo=FALSE}
+```{r gall-peters-projection-out, echo=FALSE, cache=TRUE}
 ggplot() +
   geom_sf(data = world_map_ne) + 
   coord_sf(crs = "+proj=cea +lon_0=0 +lat_ts=45") +
@@ -2200,7 +2215,7 @@ ggplot() +
 
 .pull-right[
 
-```{r robins-projection-out, echo=FALSE}
+```{r robins-projection-out, echo=FALSE, cache=TRUE}
 
 ggplot() +
   geom_sf(data = world_map_ne) + 
@@ -2215,3 +2230,290 @@ ggplot() +
 
 
 ---
+
+---
+# Working Without Shape Files(kind of)
+
+- As is the case sometimes we do not have a shape file
+--
+
+- Don't worry `sf` has you covered 
+
+- You just need to feed it the right things
+
+---
+
+---
+# Making a Bespoke Shapefile 
+
+- You can either feed it latitude and longitudes 
+
+- Or you can feed it addresses
+
+- You will need to geocode them
+
+- Most free ones have rate limits
+  - So be mindful of the size of your data
+
+
+
+
+
+---
+
+---
+# Making a Bespoke Shapefile(cont)
+
+
+```{r eval=FALSE}
+ga_cities = tribble( 
+  ~city, ~lat, ~long,
+  "Atlanta", 33.748955, -84.388099,
+  "Athens", 33.950794, -83.358884,
+  "Savannah", 32.113192, -81.089350
+)
+
+
+ga_cities_geometry = ga_cities |>  
+  st_as_sf(coords = c("long", "lat"), crs = st_crs("EPSG:4326"))
+ga_cities_geometry
+
+```
+
+
+```{r echo=FALSE}
+ga_cities = tribble( 
+  ~city, ~lat, ~long,
+  "Atlanta", 33.748955, -84.388099,
+  "Athens", 33.950794, -83.358884,
+  "Savannah", 32.113192, -81.089350
+)
+
+
+ ga_cities |> 
+  st_as_sf(coords = c("long", "lat"), crs = st_crs("EPSG:4326")) |> 
+  knitr::kable(format = "html") 
+   
+   
+```
+
+
+
+
+
+
+
+
+.footnote[examples derived from Andrew Heiss]
+---
+
+
+---
+# Making a Artesianal Shapefile(cont)
+
+```{r, eval=FALSE}
+library(tidygeocoder)
+
+breweries_I_visit = tribble(
+  ~name, ~address,
+  "Russian River Brewing", "725 4th St, Santa Rosa, CA 95404",
+  "Orpheus Brewing", "1440 Dutch Valley Pl NE, Atlanta, GA 30324",
+  "Three Tavens", "121 New St, Decatur, GA 30030",
+  "HenHouse Brewing Company", "322 Bellevue Ave, Santa Rosa, CA 95407"
+)
+
+breweries_geocode = breweries_I_visit |> 
+  geocode(address,  cascade_order = c("osm", "arcgis")) # backup if one service fails 
+
+add_geom = breweries_geocode |> 
+  st_as_sf(coords = c("long", "lat"), crs = st_crs("EPSG:4326"))
+```
+
+
+
+```{r echo=FALSE, cache=TRUE}
+library(tidygeocoder)
+breweries_I_visit = tribble(
+  ~name, ~address,
+  "Russian River Brewing", "725 4th St, Santa Rosa, CA 95404",
+  "Orpheus Brewing", "1440 Dutch Valley Pl NE, Atlanta, GA 30324",
+  "Three Tavens", "121 New St, Decatur, GA 30030",
+  "HenHouse Brewing Company", "322 Bellevue Ave, Santa Rosa, CA 95407"
+)
+
+
+breweries_geocode = breweries_I_visit |> 
+  geocode(address,  cascade_order = c("osm", "arcgis"))
+
+breweries_geocode |> 
+  st_as_sf(coords = c("long", "lat"), crs = st_crs("EPSG:4326")) |> 
+  knitr::kable(format = "html")
+```
+
+
+
+
+---
+
+---
+# Mapping Atlanta
+
+- Combining what we have learned we can easily map Atlanta 
+
+- Using the osmdata package by Open Street Maps we can do lots of things
+
+- You can also save lots of money on gifts
+--
+- Trust me 
+
+
+---
+
+---
+# Mapping Atlanta 
+
+```{r cache=TRUE}
+
+library(osmdata)
+
+big_streets = getbb("Atlanta United States") %>% 
+  opq() %>% 
+  add_osm_feature(key = "highway", 
+                  value = c("motorway", "primary", "motorway_link", "primary_link")) %>%
+  osmdata_sf()
+
+med_streets = getbb("Atlanta United States") %>%
+  opq() %>%
+  add_osm_feature(key = "highway", 
+                  value = c("secondary", "tertiary", "secondary_link", "tertiary_link")) %>%
+  osmdata_sf()
+
+
+small_streets = getbb("Atlanta United States") %>%
+  opq()%>%
+  add_osm_feature(key = "highway", 
+                  value = c("residential", "living_street",
+                            "unclassified",
+                            "service", "footway"
+                  )) %>%
+  osmdata_sf()
+
+```
+
+
+
+
+---
+
+---
+```{r cache=TRUE}
+railway = getbb("Atlanta United States")%>%
+  opq()%>%
+  add_osm_feature(key = "railway", value= "rail") %>%
+  osmdata_sf()
+
+bars = tribble(
+  ~name, ~address,
+  "Hattie B's", "299 Moreland Ave NE, Atlanta, GA 30307",
+  "Side Bar", "79 Poplar St NW, Atlanta, GA 30303",
+  "Manny's", "602 North Highland Avenue Northeast, Atlanta, GA 30307",
+  "The Porter", "1156 Euclid Ave NE, Atlanta, GA 30307",
+  "Anatolia's", "Peachtree St, Atlanta, GA 30303",
+  "Agave", "242 Boulevard SE, Atlanta, GA 30312",
+  "Fetch", "520 Daniel St SE, Atlanta, GA 30312",
+  "Recess", "99-V, Krog St NE, Atlanta, GA 30307",
+  "Der Biergarten", "300 Marietta St NW, Atlanta, GA 30313",
+  "The Highlander", "931 Monroe Dr NE, Atlanta, GA 30308" ,
+  "Wrecking Bar", "292 Moreland Ave NE, Atlanta, GA 30307"
+)
+
+bars_geocode = bars %>% 
+  geocode(address, method = "osm")
+
+add_geom = bars_geocode %>% 
+  st_as_sf(coords = c("long", "lat"), crs = st_crs("EPSG:4326"))
+```
+
+
+
+---
+
+---
+```{r eval=FALSE}
+ggplot() +
+  geom_sf(data = railway$osm_lines,
+          inherit.aes = FALSE,
+          color = "black",
+          size = .2,
+          linetype="dotdash",
+          alpha = .5) +
+  geom_sf(data = med_streets$osm_lines,
+          inherit.aes = FALSE,
+          color = "black",
+          size = .3,
+          alpha = .5) +
+  geom_sf(data = small_streets$osm_lines,
+          inherit.aes = FALSE,
+          color = "#666666",
+          size = .2,
+          alpha = .3) +
+  geom_sf(data = big_streets$osm_lines,
+          inherit.aes = FALSE,
+          color = "black",
+          size = .5,
+          alpha = .6) +
+  geom_sf(data = add_geom, aes(color = name),
+          color = "#0039A6") +
+  coord_sf(ylim = c(33.64, 33.89), 
+           xlim = c (-84.56, -84.30), expand = FALSE) +
+  theme_void(base_family = "Roboto Condensed", base_size = 20) +
+  theme(plot.subtitle = element_text(size = 10, hjust = 0.5, 
+                                     margin = margin(2, 0, 5, 0)),
+        plot.title = element_text(face="bold", hjust=.5),
+        plot.caption = element_text(size = 8, face = "bold"))
+```
+
+---
+
+---
+# Which Produces
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+ggplot() +
+  geom_sf(data = railway$osm_lines,
+          inherit.aes = FALSE,
+          color = "black",
+          size = .2,
+          linetype="dotdash",
+          alpha = .5) +
+  geom_sf(data = med_streets$osm_lines,
+          inherit.aes = FALSE,
+          color = "black",
+          size = .3,
+          alpha = .5) +
+  geom_sf(data = small_streets$osm_lines,
+          inherit.aes = FALSE,
+          color = "#666666",
+          size = .2,
+          alpha = .3) +
+  geom_sf(data = big_streets$osm_lines,
+          inherit.aes = FALSE,
+          color = "black",
+          size = .5,
+          alpha = .6) +
+  geom_sf(data = add_geom, aes(color = name),
+          color = "#0039A6") +
+  coord_sf(ylim = c(33.64, 33.89), 
+           xlim = c (-84.56, -84.30), expand = FALSE) +
+  theme_void(base_family = "Roboto Condensed", base_size = 20) +
+  theme(plot.subtitle = element_text(size = 10, hjust = 0.5, 
+                                     margin = margin(2, 0, 5, 0)),
+        plot.title = element_text(face="bold", hjust=.5),
+        plot.caption = element_text(size = 8, face = "bold")) + 
+   labs(title = "Atlanta", subtitle = "33.7490°N/84.3880°W")
+```
+
+
+
+---
+
