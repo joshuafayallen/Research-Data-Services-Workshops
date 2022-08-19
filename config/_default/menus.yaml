@@ -14,5 +14,5 @@ main:
 Materials:
   - name: Overview
     weight: 1
-  - name: Materials
+  - name: Workshop Content
     weight: 2

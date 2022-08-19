@@ -4,7 +4,7 @@ linktitle: "Getting Started in R"
 date: "2022-08-07"
 menu:
   materials:
-    parent: Materials
+    parent: Workshop Content
     weight: 1
 type: docs
 toc: true
@@ -36,30 +36,30 @@ Grant McDermot’s excellent [Data Science for Economists](https://github.com/uo
 
 If you want to follow along with the workshop please download the data used in the workshop
 
--   [<i class="fas fa-table"></i> `penguins.csv`](/slides/data/penguins.csv)
+- [<i class="fas fa-table"></i> `penguins.csv`](/slides/data/penguins.csv)
 
 ## Your Turn Excercise 1
 
--   read in the data included to the website using `read.csv`
+- read in the data included to the website using `read.csv`
 
-    -   What happens when you do not assign the dataset?
+  - What happens when you do not assign the dataset?
 
--   assign the `penguins` dataset to an object named penguins
+- assign the `penguins` dataset to an object named penguins
 
--   use `View`, `head`, and `tail` to inspect the dataset
+- use `View`, `head`, and `tail` to inspect the dataset
 
--   using `install.packages()` install ggplot2
+- using `install.packages()` install ggplot2
 
 ## Your Turn Excercise 2
 
--   Find the minimum value of `bill_length_mm`
+- Find the minimum value of `bill_length_mm`
 
--   Find the maximum value of `body_mass_g`
+- Find the maximum value of `body_mass_g`
 
--   Subset the penguins data any way you want using `[]` or `$`
+- Subset the penguins data any way you want using `[]` or `$`
 
--   Assign each of them to an object
+- Assign each of them to an object
 
--   Create a vector of anything you want and find the second thing in that vector using `[]`
+- Create a vector of anything you want and find the second thing in that vector using `[]`
 
--   Do the same thing using `$`
+- Do the same thing using `$`

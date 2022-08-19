@@ -5,7 +5,7 @@ date: "2022-08-08"
 author: "Josh Allen"
 menu:
   materials:
-    parent: Materials
+    parent: Workshop Content
     weight: 1
 type: docs
 toc: true

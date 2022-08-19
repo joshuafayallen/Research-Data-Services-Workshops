@@ -4,7 +4,7 @@ linktitle: "Getting Started in R"
 date: "2022-08-07"
 menu:
   materials:
-    parent: Materials
+    parent: Workshop Content
     weight: 1
 type: docs
 toc: true
