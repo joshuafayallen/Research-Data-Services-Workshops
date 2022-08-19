@@ -1087,7 +1087,7 @@ We may want to see where our penguin friends live so we can use tapply which is 
 
 ---
 # Plotting 
-.left-code[
+.pull-left[
 ```{r base-r-scatter, eval=FALSE}
 plot(penguins$bill_length_mm, penguins$body_mass_g,
      xlab = "Bill Length(mm)",
@@ -1098,8 +1098,10 @@ plot(penguins$bill_length_mm, penguins$body_mass_g,
 
 .right-plot[
 
-```{r base-r-scatter-out, ref.label="base-r-scatter", echo=FALSE}
-
+```{r base-r-scatter-out, echo=FALSE}
+plot(penguins$bill_length_mm, penguins$body_mass_g,
+     xlab = "Bill Length(mm)",
+     ylab = "Body Mass(g)")
 ```
 
 ]
@@ -1110,7 +1112,7 @@ plot(penguins$bill_length_mm, penguins$body_mass_g,
 
 ---
 # Plotting(cont)
-.left-code[
+.pull-left[
 ```{r base-r-hist, eval=FALSE}
 hist(penguins$bill_length_mm, xlim = c(30, 60))
 
@@ -1120,8 +1122,8 @@ hist(penguins$bill_length_mm, xlim = c(30, 60))
 
 .right-plot[
 
-```{r base-r-hist-out, ref.label="base-r-hist", echo=FALSE}
-
+```{r base-r-hist-out, echo=FALSE}
+hist(penguins$bill_length_mm, xlim = c(30, 60))
 ```
 
 
