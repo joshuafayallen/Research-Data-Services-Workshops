@@ -288,7 +288,9 @@ library(I)
 library(JustInstalled)
 ```
  
-Notice too that you don't need quotes around the package names any more. Reason: R now recognises these packages as defined objects with given names. ("Everything in R is an object and everything has a name.")
+Notice too that you don't need quotes around the package names any more. 
+???
+Reason: R now recognises these packages as defined objects with given names. ("Everything in R is an object and everything has a name.")
 
 ---
 
@@ -528,7 +530,11 @@ d = b/3
 
 
 - Tbh this is a matter of taste really. 
-- Just keep it consistent.. or become ungovernable and use all three in one script.
+
+- Just keep it consistent..
+-- 
+
+- Just keep it consistent..or become ungovernable and use all three in one script.
   - I am not responsible for you getting yelled at on Stackoverflow if you do this.
 
 .footnote[More discussion [here](https://github.com/Robinlovelace/geocompr/issues/319#issuecomment-427376764) and [here](https://www.separatinghyperplanes.com/2018/02/why-you-should-use-and-never.html)]
