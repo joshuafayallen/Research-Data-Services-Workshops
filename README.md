@@ -1,6 +1,6 @@
 # Welcome 
 
-In this github repository you will find the code for the research data services workshops!
+In this github repository you will find the code for the Research Data Services `R` workshops!
 
 Various hugo and blogdown features were borrowed more or less directly  [Andrew Heiss](https://www.andrewheiss.com/teaching/) and using modifications to the theme made by [Matt Blackwell](https://mattblackwell.org/)
 
