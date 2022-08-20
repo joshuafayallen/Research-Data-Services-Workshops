@@ -106,7 +106,7 @@ R is a vastly popular language in the datascience industry. While it is less pop
 - A great "first" language to learn
   - Source: [Google Data Analytics Professional Certificate](https://www.coursera.org/professional-certificates/google-data-analytics?irclickid=T1LQYH0NXxyNUwfyCLUQjRO9UkD3oW1kE3Q4100&irgwc=1&utm_medium=partners&utm_source=impact&utm_campaign=2946137&utm_content=b2c#faq)
 
-- Supports all types of statistical methods and data collecion 
+- Supports all types of statistical methods and data collection 
 
 
 ---
@@ -378,6 +378,14 @@ There are lots of other useful mathematical operations we can use in R to make o
   <tr>
     <td class="cell-center"><code class="remark-inline-code">x != y</code></td>
     <td class="cell-left">Not equal to</td>
+  </tr>
+  <tr>
+    <td class="cell-center"><code class="remark-inline-code">x | y</code></td>
+    <td class="cell-left">Or </td>
+  </tr>
+  <tr>
+    <td class="cell-center"><code class="remark-inline-code">x & y</code></td>
+    <td class="cell-left">And</td>
   </tr>
 </table>
 
