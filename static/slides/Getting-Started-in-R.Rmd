@@ -115,7 +115,7 @@ R is a vastly popular language in the datascience industry. While it is less pop
 # R? Rstudio? Whats the Difference?
 
 - R is a statistical programming language
-- RStudio is a convenient interface for R (an integrated development environment, IDE)
+- RStudio is a convenient interface for R (an Integrated Developer Environment, IDE)
 - At its simplest:
     - R is like a car’s engine
     - RStudio is like a car’s dashboard
