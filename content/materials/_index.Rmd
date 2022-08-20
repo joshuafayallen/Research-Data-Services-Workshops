@@ -27,5 +27,36 @@ Each workshop I will highlight a list of excellent R resources I use and have he
 
 ## Installing R and RStudio
 
-1. 
+### Installing R 
+First we need to install R. 
+
+1. Go to the CRAN(Collective R Archive Network) website [https://cran.r-project.org/](https://cran.r-project.org/)
+
+2. You should see download R for your operating system some where 
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("/Users/josh/Dropbox/Research-Data-Services-Workshops/website/static/media/downloading-r.png")
+```
+  - If you use macOS make sure you choose one of the notarized and signed versions. Right now it is 4.2.1. If you have an intel based mac choose the first one. If you have an ARM mac than choose the ARM one. 
+  
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("/Users/josh/Dropbox/Research-Data-Services-Workshops/website/static/media/mac-stuff-r.png")
+```
+    - If you use Windows, click "base" (or click on the on the bolded one that says "install R for the first time and download it).
+    
+    
+3. Double click on the downloaded file(check your `Downloads` folder). Click yes on all the prompts
+
+4. If you are on a Mac you also need to [download and install XQuartz](https://www.xquartz.org/). If you are on a windows machine you *do not need to install XQuartz*
+
+
+### Installing RStudio
+Next, you need to install RStudio, the nicer integrated devloper environment (IDE) for R (the dashboard). Once R and RStudio are both installed, you can ignore R and only use RStudio. RStudio will use R automatically and you won’t ever have to interact with it directly.
+
+1. Go to the free download location on RStudio's website: [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download)
+
+2. The Website *should* detect what operating system you are on and show a button that says *"Download RStudio for __*  If not scroll and select the Rstudio for your operating system.
+
+3. Double click on the downloaded file(check your Downloads folderr). Click yes for each prompt.
+
 
