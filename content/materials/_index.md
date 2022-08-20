@@ -32,12 +32,10 @@ First we need to install R.
 
 1. Go to the CRAN(Collective R Archive Network) website [https://cran.r-project.org/](https://cran.r-project.org/)
 
-2. You should see download R for your operating system some where 
+2. You should see download R for your operating system at the top of the page under "Download and Install R"
 
-<img src="../../static/media/downloading-r.png" width="904" style="display: block; margin: auto;" />
   - If you use macOS make sure you choose one of the notarized and signed versions. Right now it is 4.2.1. If you have an intel based mac choose the first one. If you have an ARM mac than choose the ARM one. 
-  
-<img src="../../static/media/mac-stuff-r.png" width="1157" style="display: block; margin: auto;" />
+
     - If you use Windows, click "base" (or click on the on the bolded one that says "install R for the first time and download it).
     
     
