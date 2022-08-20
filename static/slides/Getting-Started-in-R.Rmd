@@ -573,6 +573,22 @@ Because x and y live within e we need to tell that they belong to e so to fix it
 
 ---
 
+---
+# Fixing Our Issue 
+
+```{r}
+lm(y~x, data = e)
+```
+
+
+
+
+
+???
+In R one of the biggest things is that being explicit about what name to use is how we do things. If you are not you are gonna get error messages at best.There are lots of ways 
+---
+
+
 
 ---
 name:object
@@ -662,7 +678,12 @@ If you have noticed every object in our little session has a name. But we should
 
 For simple things like assigning `c = 4 ` and then doing `d = c(1,2,3,4)` R will be able to distinguish between assign c the value of 4 and the `c` that calls `concatenate` which is way more important in R.
 
-However it is generally a good idea, *unless you know what you are doing*, to avoid naming things that are functions in `R` because `R` will get confused which will lead to strange behavior.
+However it is generally a good idea, *unless you know what you are doing*, to avoid naming things that are functions in `R` because `R` will get confused.
+
+
+You will get an error usually that says that Object of type ‘closure’ is not subsettable. This is just R saying wow I am like super confused. Like I have these two things named the same thing R will in the best case give up. It got super stressed and just quit. Other times it will just use the one that was set last. So just avoid doing this for now.
+
+
 
 ---
 

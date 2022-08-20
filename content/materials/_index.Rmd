@@ -23,3 +23,9 @@ Each workshop I will highlight a list of excellent R resources I use and have he
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Many students starting out for the first time ask &quot;Which stats software should I use? R or Stata?&quot; The debates have gotten stale so I hired the couple on TikTok again to come in and give their two cents. <a href="https://t.co/Enl9jz8KHx">pic.twitter.com/Enl9jz8KHx</a></p>&mdash; scott cunningham (@causalinf) <a href="https://twitter.com/causalinf/status/1560517531227627520?ref_src=twsrc%5Etfw">August 19, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </center>
+
+
+## Installing R and RStudio
+
+1. 
+
