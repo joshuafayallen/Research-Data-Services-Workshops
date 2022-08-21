@@ -12,14 +12,16 @@ library_logo =  magick::image_read(
   depth = 16
 )
 
+font_add_google("Lato", "Lato")
+
+showtext_auto()
 
 sticker(
   subplot = library_logo, 
   package = "GSU RDS R Workshops", 
   p_size = 20, 
   p_y = 1.44,
-  p_family = "serif",
-  p_fontface = "bold",
+  p_family = "Lato",
   s_x = 1, 
   s_y = 0.93, 
   s_width = 1.85, 
