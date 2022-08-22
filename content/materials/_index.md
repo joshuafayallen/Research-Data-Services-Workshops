@@ -13,7 +13,7 @@ The workshop slides are special HTML files made with the R package [**xaringan**
 
 The slides are also embedded on each page. You can click in the slides and navigate through them with <kbd>←</kbd> and <kbd>→</kbd>. If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while viewing the slides you can see a list of slide-specific commands (like <kbd>f</kbd> for fullscreen or <kbd>p</kbd> for presenter mode if you want to see my notes).
 
-Each workshop I will highlight a list of excellent R resources I use and have helped me learn R. I highly encourage you to check them out. I am particularly indebted to the examples and content provided by [Andrew Heiss](https://www.andrewheiss.com/) and [Grant McDermott](https://grantmcdermott.com/).
+Each workshop I will highlight a list of excellent R resources I use and have helped me learn R. I highly encourage you to check them out. I am particularly indebted to the examples and content provided by [Andrew Heiss](https://www.andrewheiss.com/) and [Grant McDermott](https://grantmcdermott.com/) which have been critical not only for the development of this workshop but my own understanding of R.
 
 ## Why R? 
 
