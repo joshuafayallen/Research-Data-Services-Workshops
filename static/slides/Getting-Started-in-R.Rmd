@@ -466,8 +466,8 @@ To see whether an object is contained within (i.e. matches one of) a list of ite
 --
 
 - We may need to set up a group of tests to do something to data.
---
 
+--
 - We may need all this math stuff to create new variables
 
 - However we need to ***Assign them*** to reuse them later in functions.
@@ -532,8 +532,8 @@ d = b/3
 - Tbh this is a matter of taste really. 
 
 - Just keep it consistent..
--- 
 
+--
 - Just keep it consistent..or become ungovernable and use all three in one script.
   - I am not responsible for you getting yelled at on Stackoverflow if you do this.
 
@@ -695,13 +695,32 @@ For simple things like assigning `c = 4 ` and then doing `d = c(1,2,3,4)` R will
 However it is generally a good idea, *unless you know what you are doing*, to avoid naming things that are functions in `R` because `R` will get confused.
 
 
+
+
+???
 You will get an error usually that says that Object of type ‘closure’ is not subsettable. This is just R saying wow I am like super confused. Like I have these two things named the same thing R will in the best case give up. It got super stressed and just quit. Other times it will just use the one that was set last. So just avoid doing this for now.
 
 
 
 ---
 
+---
+# How and What to Name Objects 
 
+The best practice is to use concise descriptive names
+
+When loading in data typically I do `raw_my_dataset_name` and after data all of my  cleaning I do `clean_my_dataset_name`
+
+Objects must start with a letter. But can contain letters, numbers, `_`, or `.`
+  
+  ```
+    snake_case_like_this_is_what_I_use
+    somePeopleUseCamelCase
+    some_People.are_Do_not.like_Convention 
+    ```
+
+.footnote[Example and Discussion provided in [R for Data Sciency](https://r4ds.had.co.nz/workflow-basics.html?q=snake#whats-in-a-name) by Hadley Wickham]
+---
 
 ---
 name: workingsobj
